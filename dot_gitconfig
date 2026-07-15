@@ -3,6 +3,7 @@
 # Please adapt and uncomment the following lines:
 	name = Indrajeet Aditya Roy
 	email = 53830950+indrajeetadityaroy9@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519.pub
 [http]
 	postBuffer = 524288000
 [core]
@@ -26,3 +27,11 @@
 	sort = -committerdate
 [fetch]
 	prune = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+[color]
+	ui = auto
