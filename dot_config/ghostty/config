@@ -1,0 +1,6 @@
+# Ghostty config — font matched to macOS Terminal.app "Basic" profile
+# Terminal Basic = SF Mono Regular @ 11pt (SF Mono installed into ~/Library/Fonts
+# from Terminal.app's bundle, since Apple doesn't register it system-wide).
+
+font-family = SF Mono
+font-size = 11
