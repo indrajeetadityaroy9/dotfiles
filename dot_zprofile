@@ -1,9 +1,6 @@
-# ~/.zprofile — login-time environment (idempotent; safe to re-source)
 [ -n "$_ZPROFILE_SOURCED" ] && return
 export _ZPROFILE_SOURCED=1
 
-# Homebrew (must come first to satisfy mise/uv lookups)
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# User-local binaries (uv tools, scripts)
 export PATH="$HOME/.local/bin:$PATH"

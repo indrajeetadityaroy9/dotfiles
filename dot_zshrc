@@ -1,27 +1,19 @@
-# ~/.zshrc — interactive shell (2026 SOTA stack)
-
-# Idempotent .zprofile source — ensures PATH is set even for non-login interactive shells
 [ -f ~/.zprofile ] && source ~/.zprofile
 
-# --- Editor ---
 export VISUAL=hx EDITOR="$VISUAL"
 
-# --- History ---
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
 SAVEHIST=100000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE EXTENDED_HISTORY HIST_REDUCE_BLANKS
 
-# --- Completion ---
 autoload -Uz compinit
 compinit -d ~/.cache/zcompdump
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-# --- mise: universal runtime manager (Python + Node) ---
 eval "$(mise activate zsh)"
 
-# --- Shell augmentations ---
 eval "$(zoxide init zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(direnv hook zsh)"
@@ -29,7 +21,6 @@ eval "$(starship init zsh)"
 [ -f ~/.local/share/sheldon/plugins.lock ] && eval "$(sheldon source)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# --- Aliases (modern CLI replacements) ---
 alias ls='eza --git --icons'
 alias ll='eza -lah --git --icons'
 alias lt='eza --tree --level=2 --git-ignore'
@@ -37,9 +28,4 @@ alias cat='bat --paging=never'
 alias top='btop'
 alias du='dust'
 
-# --- Secrets via macOS Keychain (lazy helper) ---
-# Usage in project .envrc:  export OPENAI_API_KEY="$(keychain OPENAI_API_KEY)"
-# Or to load globally on every shell, uncomment the export lines below.
 keychain() { security find-generic-password -a "$USER" -s "$1" -w 2>/dev/null; }
-# export OPENAI_API_KEY="$(keychain OPENAI_API_KEY)"
-# export HF_TOKEN="$(keychain HF_TOKEN)"
