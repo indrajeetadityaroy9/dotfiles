@@ -1,0 +1,16 @@
+# Secret-scanning guard for the dotfiles SOURCE repo (~/.local/share/chezmoi).
+# This file lives at the source-tree root as ".pre-commit-config.yaml". chezmoi
+# ignores every source entry whose name begins with a dot, so it is tracked by
+# git but NEVER applied to $HOME (no ~/.pre-commit-config.yaml is created).
+#
+# Enable once per machine:
+#   cd ~/.local/share/chezmoi && pre-commit install
+# `pre-commit` is already on your PATH; the hook fetches gitleaks itself,
+# so no `brew install gitleaks` is required.
+#
+# Keep the rev current with:  pre-commit autoupdate
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks

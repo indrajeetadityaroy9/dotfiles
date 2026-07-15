@@ -6,3 +6,18 @@ Host *
 Host github.com
   HostName github.com
   User git
+
+# NVIDIA DGX Spark (GB10) — added 2026-06-03
+# Reached over Tailscale (Mac and Spark are on different LANs), so this works
+# from any network. MagicDNS name resolves to tailnet IP REDACTED.
+Host spark
+  HostName REDACTED-host.REDACTED.ts.net
+  User indrajeetadityaroy
+
+# Same-LAN fallbacks (only work when Mac and Spark share a subnet)
+Host spark-lan
+  HostName REDACTED
+  User indrajeetadityaroy
+Host spark-local
+  HostName REDACTED-host.local
+  User indrajeetadityaroy
