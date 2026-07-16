@@ -1,4 +1,5 @@
 [tools]
+gitleaks = "latest"
 node = "lts"
 python = "3.13"
 rust = "stable"

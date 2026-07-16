@@ -1,0 +1,12 @@
+#!/bin/sh
+# Managed by chezmoi. Scans staged changes for secrets before commit.
+command -v gitleaks >/dev/null 2>&1 || {
+    printf '\033[33mgitleaks not found on PATH — skipping secret scan\033[0m\n' >&2
+    exit 0
+}
+# gitleaks >=8.19 prefers `git --staged`; fall back to `protect` on older builds.
+if gitleaks git --help >/dev/null 2>&1; then
+    gitleaks git --staged --redact --no-banner -v
+else
+    gitleaks protect --staged --redact -v
+fi
