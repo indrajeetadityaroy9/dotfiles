@@ -1,6 +1,6 @@
 {{- if ne .chezmoi.os "darwin" }}
 .config/ghostty/config
-run_once_after_install-sf-mono-font.sh
+install-sf-mono-font.sh
 {{- end }}
 .config/gh
 .ssh/authorized_keys
