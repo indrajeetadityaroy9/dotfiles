@@ -12,10 +12,12 @@
 	process = git-lfs filter-process
 	required = true
 [credential]
-	helper = osxkeychain
+	helper = {{ if eq .chezmoi.os "darwin" }}osxkeychain{{ else }}!/usr/bin/gh auth git-credential{{ end }}
 [init]
 	defaultBranch = main
 	templateDir = ~/.config/git/template
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 [pull]
 	rebase = true
 [push]
@@ -29,6 +31,8 @@
 [gpg]
 	format = ssh
 [commit]
+	gpgsign = true
+[tag]
 	gpgsign = true
 [gpg "ssh"]
 	allowedSignersFile = ~/.config/git/allowed_signers
