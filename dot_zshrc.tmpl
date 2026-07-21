@@ -22,8 +22,8 @@ eval "$(starship init zsh)"
 [ -f ~/.local/share/sheldon/plugins.lock ] && eval "$(sheldon source)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-alias ls='eza --git --icons'
-alias ll='eza -lah --git --icons'
+alias ls='eza --git --icons=auto'
+alias ll='eza -lah --git --icons=auto'
 alias lt='eza --tree --level=2 --git-ignore'
 alias cat='bat --paging=never'
 alias top='btop'
