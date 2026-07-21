@@ -26,6 +26,17 @@ alias ll='eza -lah --git --icons'
 alias lt='eza --tree --level=2 --git-ignore'
 alias cat='bat --paging=never'
 alias top='btop'
-alias du='dust'
+alias du='dua'
 
-keychain() { security find-generic-password -a "$USER" -s "$1" -w 2>/dev/null; }
+{{ if eq .chezmoi.os "linux" -}}
+# Ensure D-Bus / Secret Service is reachable in headless SSH sessions
+if [[ -z "$DBUS_SESSION_BUS_ADDRESS" ]] && command -v dbus-run-session >/dev/null; then
+    export $(dbus-run-session gnome-keyring-daemon --start 2>/dev/null)
+fi
+
+# Guard training runs against UMA OOM: cap RAM, deny swap (clean kill, no swap thrash)
+mlguard() { sudo systemd-run --scope -p MemoryMax=110G -p MemorySwapMax=0 --uid="$(id -u)" --gid="$(id -g)" "$@"; }
+{{ end -}}
+# Secrets: no values in the repo — thin wrapper over the OS keyring (macOS Keychain / Linux Secret Service).
+# Inject command-scoped, e.g.:  OPENAI_API_KEY="$(keychain openai)" some-command
+keychain() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }

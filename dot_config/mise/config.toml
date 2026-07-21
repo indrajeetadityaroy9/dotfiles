@@ -1,5 +1,17 @@
 [tools]
+node     = "lts"
+rust     = "stable"
 gitleaks = "8.30.1"
-node = "lts"
-python = "3.13"
-rust = "stable"
+uv       = "0.11.30"
+eza      = "0.23.5"
+starship = "1.26.0"
+atuin    = "18.17.1"
+btop     = "1.4.7"
+bat      = "latest"      # pin to current on first install for parity
+zoxide   = "latest"
+direnv   = "latest"      # kept (subsumable by mise, but avoids breaking existing .envrc)
+fzf      = "latest"
+helix    = "latest"      # provides `hx` (EDITOR); was implicit from brew
+sheldon  = "latest"      # zshrc sources it — must be installed
+dua      = "latest"      # replaces unmaintained dust
+git-lfs  = "latest"      # gitconfig has lfs filters; needed on Linux
