@@ -8,6 +8,9 @@ HISTSIZE=100000
 SAVEHIST=100000
 setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE EXTENDED_HISTORY HIST_REDUCE_BLANKS
 
+{{ if ne .chezmoi.os "darwin" -}}
+fpath+=(~/.local/share/zsh/plugins/zsh-completions/src)
+{{ end -}}
 autoload -Uz compinit
 compinit -d ~/.cache/zcompdump
 zstyle ':completion:*' menu select
@@ -19,7 +22,14 @@ eval "$(zoxide init zsh)"
 eval "$(atuin init zsh --disable-up-arrow)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
+{{ if eq .chezmoi.os "darwin" -}}
 [ -f ~/.local/share/sheldon/plugins.lock ] && eval "$(sheldon source)"
+{{- else -}}
+# sheldon's libgit2 stalls on this network's HTTPS reads — load plugins directly (cloned via git CLI)
+ZPLUG=~/.local/share/zsh/plugins
+[ -f $ZPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $ZPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f $ZPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source $ZPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+{{- end }}
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias ls='eza --git --icons=auto'
