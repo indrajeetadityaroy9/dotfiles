@@ -1,0 +1,9 @@
+{{- if ne .chezmoi.os "darwin" }}
+.config/ghostty/config
+install-sf-mono-font.sh
+{{- end }}
+.config/gh
+.ssh/authorized_keys
+.ssh/id_ed25519
+.ssh/id_ed25519.pub
+.ssh/known_hosts

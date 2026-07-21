@@ -1,0 +1,43 @@
+[ -f ~/.zprofile ] && source ~/.zprofile
+
+export VISUAL=hx
+export EDITOR="$VISUAL"
+
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt SHARE_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE EXTENDED_HISTORY HIST_REDUCE_BLANKS
+
+autoload -Uz compinit
+compinit -d ~/.cache/zcompdump
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+eval "$(mise activate zsh)"
+
+eval "$(zoxide init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
+eval "$(direnv hook zsh)"
+eval "$(starship init zsh)"
+[ -f ~/.local/share/sheldon/plugins.lock ] && eval "$(sheldon source)"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias ls='eza --git --icons'
+alias ll='eza -lah --git --icons'
+alias lt='eza --tree --level=2 --git-ignore'
+alias cat='bat --paging=never'
+alias top='btop'
+alias du='dua'
+
+{{ if eq .chezmoi.os "linux" -}}
+# Ensure D-Bus / Secret Service is reachable in headless SSH sessions
+if [[ -z "$DBUS_SESSION_BUS_ADDRESS" ]] && command -v dbus-run-session >/dev/null; then
+    export $(dbus-run-session gnome-keyring-daemon --start 2>/dev/null)
+fi
+
+# Guard training runs against UMA OOM: cap RAM, deny swap (clean kill, no swap thrash)
+mlguard() { sudo systemd-run --scope -p MemoryMax=110G -p MemorySwapMax=0 --uid="$(id -u)" --gid="$(id -g)" "$@"; }
+{{ end -}}
+# Secrets: no values in the repo — thin wrapper over the OS keyring (macOS Keychain / Linux Secret Service).
+# Inject command-scoped, e.g.:  OPENAI_API_KEY="$(keychain openai)" some-command
+keychain() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
