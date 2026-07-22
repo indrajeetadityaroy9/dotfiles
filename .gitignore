@@ -1,6 +1,2 @@
-# Machine-specific, not for the public repo — kept local only.
-# Brewfile is this machine's full installed-package list; bootstrap.sh reads it locally.
 Brewfile
-
-# macOS noise
 .DS_Store

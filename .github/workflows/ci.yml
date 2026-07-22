@@ -1,9 +1,5 @@
 name: ci
 
-# Slim public-repo backstop: secret scan + shell lint only.
-# No dotfiles apply / no mise install — reproducibility is proven by the real machines;
-# this just catches a leaked secret or a broken script on a commit that skipped the local hooks.
-
 on: [push, pull_request]
 
 jobs:

@@ -1,28 +1,28 @@
 [settings]
-lockfile = true                                     # read/write mise.lock (no locked=true — keep `latest` flexible)
-lockfile_platforms = ["macos-arm64", "linux-arm64"] # `mise lock` resolves BOTH machines every time
+lockfile = true
+lockfile_platforms = ["macos-arm64", "linux-arm64"]
 
 [tools]
 node     = "lts"
 rust     = "stable"
-python   = "3.13"        # global default python3 (mise 3.13.x); uv venvs symlink this
+python   = "3.13"
 gitleaks = "8.30.1"
 uv       = "0.11.30"
 eza      = "0.23.5"
 starship = "1.26.0"
 atuin    = "18.17.1"
-bat      = "latest"      # pin to current on first install for parity
+bat      = "latest"
 zoxide   = "latest"
-direnv   = "latest"      # kept (subsumable by mise, but avoids breaking existing .envrc)
+direnv   = "latest"
 fzf      = "latest"
-helix    = "latest"      # provides `hx` (EDITOR); was implicit from brew
-dua      = "latest"      # replaces unmaintained dust
-git-lfs  = "latest"      # gitconfig has lfs filters; needed on Linux
-prek     = "latest"      # Rust hook runner (drop-in for pre-commit); mise registry (aqua backend)
+helix    = "latest"
+dua      = "latest"
+git-lfs  = "latest"
+prek     = "latest"
 {{ if eq .chezmoi.os "darwin" -}}
-sheldon  = "latest"      # macOS loads zsh plugins via sheldon; Linux clones directly (sheldon unused there)
+sheldon  = "latest"
 {{ end -}}
 {{ if ne .chezmoi.os "darwin" -}}
-btop      = "1.4.7"      # Linux via mise; macOS gets btop from Homebrew (aqua btop is linux-only)
-fastfetch = "2.66.0"     # Linux via mise; macOS gets fastfetch from Homebrew (pinned — see lock note below)
+btop      = "1.4.7"
+fastfetch = "2.66.0"
 {{ end -}}

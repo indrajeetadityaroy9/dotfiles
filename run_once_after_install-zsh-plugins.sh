@@ -1,7 +1,5 @@
 #!/bin/sh
 set -eu
-# Linux only — macOS loads these via sheldon. sheldon's libgit2 stalls on some
-# networks' HTTPS reads, so we clone with the git CLI and source directly (see dot_zshrc.tmpl).
 [ "$(uname)" = "Linux" ] || exit 0
 
 DIR="$HOME/.local/share/zsh/plugins"

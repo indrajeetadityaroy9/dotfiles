@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "_comment": "Scope is deliberately narrow: Renovate's mise + homebrew managers can't parse the chezmoi source form (dot_ prefixes, .tmpl templating, Brewfile format). Only github-actions (default) and pre-commit (gitleaks rev) are enabled. mise tools + Brewfile freshness stay manual (mise upgrade && mise lock --global; brew bundle dump).",
   "enabledManagers": ["github-actions", "pre-commit"],
   "pre-commit": {
     "enabled": true

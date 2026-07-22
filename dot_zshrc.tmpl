@@ -25,7 +25,6 @@ eval "$(starship init zsh)"
 {{ if eq .chezmoi.os "darwin" -}}
 [ -f ~/.local/share/sheldon/plugins.lock ] && eval "$(sheldon source)"
 {{- else -}}
-# sheldon's libgit2 stalls on this network's HTTPS reads — load plugins directly (cloned via git CLI)
 ZPLUG=~/.local/share/zsh/plugins
 [ -f $ZPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $ZPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f $ZPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source $ZPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -40,14 +39,10 @@ alias top='btop'
 alias du='dua'
 
 {{ if eq .chezmoi.os "linux" -}}
-# Ensure D-Bus / Secret Service is reachable in headless SSH sessions
 if [[ -z "$DBUS_SESSION_BUS_ADDRESS" ]] && command -v dbus-run-session >/dev/null; then
     export $(dbus-run-session gnome-keyring-daemon --start 2>/dev/null)
 fi
 
-# Guard training runs against UMA OOM: cap RAM, deny swap (clean kill, no swap thrash)
 mlguard() { sudo systemd-run --scope -p MemoryMax=110G -p MemorySwapMax=0 --uid="$(id -u)" --gid="$(id -g)" "$@"; }
 {{ end -}}
-# Secrets: no values in the repo — thin wrapper over the OS keyring (macOS Keychain / Linux Secret Service).
-# Inject command-scoped, e.g.:  OPENAI_API_KEY="$(keychain openai)" some-command
 keychain() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
