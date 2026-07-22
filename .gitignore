@@ -1,6 +1,5 @@
-# Not for the public repo — kept local only.
-# Brewfile is this Mac's full installed-software inventory (GUI apps, ngrok, tailscale,
-# ML/research + project libs). bootstrap.sh reads it locally; it's deliberately not published.
+# Machine-specific, not for the public repo — kept local only.
+# Brewfile is this machine's full installed-package list; bootstrap.sh reads it locally.
 Brewfile
 
 # macOS noise
