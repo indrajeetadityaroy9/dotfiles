@@ -1,36 +1,22 @@
 name: ci
 
+# Slim public-repo backstop: secret scan + shell lint only.
+# No dotfiles apply / no mise install — reproducibility is proven by the real machines;
+# this just catches a leaked secret or a broken script on a commit that skipped the local hooks.
+
 on: [push, pull_request]
 
 jobs:
-  verify:
-    strategy:
-      fail-fast: false
-      matrix:
-        # Real target arches: arm64 mac + aarch64 linux (ubuntu-24.04-arm is free on public repos).
-        os: [macos-14, ubuntu-24.04-arm]
-    runs-on: ${{ matrix.os }}
+  scan:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
         with:
-          install: false   # tools come from the rendered config below, not the repo root
-
-      - name: Render dotfiles + install locked toolchain (validates templates + mise.lock on this arch)
-        run: |
-          set -eux
-          # Seed identity data so the parametrized gitconfig template renders
-          # (real values come from `chezmoi init` prompts on a real machine).
-          mkdir -p ~/.config/chezmoi
-          printf '[data]\n  git_name = "CI"\n  git_email = "ci@example.invalid"\n' > ~/.config/chezmoi/chezmoi.toml
-          # Render the whole repo into this throwaway runner HOME (scripts excluded).
-          # chezmoi is ad-hoc via `mise exec` so it's actually on PATH.
-          mise exec chezmoi@latest -- chezmoi apply --source "$GITHUB_WORKSPACE" --exclude=scripts
-          # ~/.config/mise/config.toml is now the rendered dotfiles config — install its locked toolchain.
-          mise install
+          install: false
 
       - name: Secret scan (gitleaks, full tree)
-        run: mise exec gitleaks@latest -- gitleaks dir --no-banner -v "$GITHUB_WORKSPACE"
+        run: mise exec gitleaks@latest -- gitleaks dir --no-banner -v .
 
       - name: Lint shell scripts (shellcheck)
-        run: mise exec shellcheck@latest -- shellcheck "$GITHUB_WORKSPACE/bootstrap.sh" "$GITHUB_WORKSPACE"/run_once_after_install-*.sh
+        run: mise exec shellcheck@latest -- shellcheck bootstrap.sh run_once_after_install-*.sh
