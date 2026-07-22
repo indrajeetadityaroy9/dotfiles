@@ -1,3 +1,7 @@
+[settings]
+lockfile = true                                     # read/write mise.lock (no locked=true — keep `latest` flexible)
+lockfile_platforms = ["macos-arm64", "linux-arm64"] # `mise lock` resolves BOTH machines every time
+
 [tools]
 node     = "lts"
 rust     = "stable"
@@ -7,12 +11,17 @@ uv       = "0.11.30"
 eza      = "0.23.5"
 starship = "1.26.0"
 atuin    = "18.17.1"
-btop     = "1.4.7"
 bat      = "latest"      # pin to current on first install for parity
 zoxide   = "latest"
 direnv   = "latest"      # kept (subsumable by mise, but avoids breaking existing .envrc)
 fzf      = "latest"
 helix    = "latest"      # provides `hx` (EDITOR); was implicit from brew
-sheldon  = "latest"      # zshrc sources it — must be installed
 dua      = "latest"      # replaces unmaintained dust
 git-lfs  = "latest"      # gitconfig has lfs filters; needed on Linux
+prek     = "latest"      # Rust hook runner (drop-in for pre-commit); mise registry (aqua backend)
+{{ if eq .chezmoi.os "darwin" -}}
+sheldon  = "latest"      # macOS loads zsh plugins via sheldon; Linux clones directly (sheldon unused there)
+{{ end -}}
+{{ if ne .chezmoi.os "darwin" -}}
+btop     = "1.4.7"       # Linux via mise; on macOS btop comes from Homebrew (aqua btop is linux-only)
+{{ end -}}

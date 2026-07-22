@@ -10,13 +10,5 @@ Host github.com
   HostName github.com
   User git
 
-{{ if eq .chezmoi.os "darwin" -}}
-# Reach the DGX Spark over Tailscale
-Host spark
-  HostName 100.119.207.8
-  User indrajeetadityaroy
-{{ else -}}
-# Reach the MacBook over Tailscale (set 'User <mac-username>' if it differs from $USER)
-Host macbook
-  HostName 100.108.216.116
-{{ end -}}
+# Tailnet hosts (spark / macbook) live in ~/.ssh/config.d/*.conf — untracked, per-machine, mode 600.
+# Pulled in by the `Include` at the top; deliberately NOT in this public repo. See plan §8 for contents.

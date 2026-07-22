@@ -30,7 +30,7 @@ ZPLUG=~/.local/share/zsh/plugins
 [ -f $ZPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source $ZPLUG/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f $ZPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source $ZPLUG/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 {{- end }}
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+command -v fzf >/dev/null && source <(fzf --zsh)
 
 alias ls='eza --git --icons=auto'
 alias ll='eza -lah --git --icons=auto'
