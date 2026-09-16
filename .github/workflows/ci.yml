@@ -29,7 +29,9 @@ jobs:
         run: |
           sudo apt-get install -y -qq zsh
           for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
-            mise exec chezmoi@latest -- chezmoi execute-template --init \
+            mise exec chezmoi@latest -- chezmoi \
+              --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
+              execute-template --init \
               --promptString git_name=ci --promptString git_email=ci@example.com \
               < "$t" > rendered || { echo "FAILED: $t"; exit 1; }
             case "$t" in *zsh*) zsh -n rendered && echo "zsh -n ok: $t";; esac
