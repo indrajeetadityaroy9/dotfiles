@@ -1,0 +1,17 @@
+# $ZDOTDIR/.zprofile — login shells only.
+# Only things expensive enough to do once per login belong here.
+{{ if eq .chezmoi.os "darwin" }}
+# Homebrew is still needed for GUI casks and fonts; CLI tools come from mise.
+# Idempotent thanks to `typeset -U path` in .zshenv.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+{{- end }}
+
+# zsh drops the -U flag after .zshenv (it re-imports PATH from the environment),
+# so it must be re-asserted here or the prepend below creates a duplicate.
+typeset -U path fpath
+
+# brew shellenv prepends itself, which would otherwise demote ~/.local/bin set
+# in .zshenv. Re-asserting moves it back to the front instead of duplicating.
+path=("$HOME/.local/bin" $path)

@@ -1,0 +1,11 @@
+{{/*
+  Targets chezmoi previously created that the new layout supersedes.
+  NOTE: ~/.gitconfig MUST go — git only reads ~/.config/git/config when
+  ~/.gitconfig is absent, so leaving it would make the new config inert.
+  Files listed in .chezmoiignore (bootstrap.sh, renovate.json, Brewfile)
+  can NOT be listed here: ignore wins, so chezmoi never removes them.
+  They are deleted once, by hand.
+*/ -}}
+.gitconfig
+.zshrc
+.zprofile

@@ -1,0 +1,43 @@
+# ~/.config/mise/config.toml
+#
+# Plain TOML on purpose — NOT a chezmoi template. Go template directives made
+# this file unparseable as TOML, which is why Renovate could never read it and
+# every pinned version here went stale. OS-specific tools now live in conf.d/
+# and are selected by .chezmoiignore instead of {{ if }} blocks.
+
+[settings]
+lockfile = true
+# linux-x64 included so CI (ubuntu-latest) resolves from the lockfile too.
+lockfile_platforms = ["macos-arm64", "linux-arm64", "linux-x64"]
+# Don't let a stray .python-version / .node-version in some repo silently
+# override the toolchain.
+idiomatic_version_file_enable_tools = []
+
+[tools]
+# Language runtimes track a channel; mise.lock still pins the exact resolved
+# build, so this stays reproducible.
+node   = "lts"
+rust   = "stable"
+python = "3.13"      # NOT bumped to 3.14: existing uv venvs symlink this
+java   = "temurin-21"
+
+# CLI tools are pinned exactly. Renovate opens PRs to bump them (see
+# renovate.json) — pinning without an update path is just slow rot.
+atuin      = "18.22.0"
+bat        = "0.26.1"
+direnv     = "2.37.1"
+dua        = "2.45.0"
+eza        = "0.23.5"
+fd         = "10.5.0"
+fzf        = "0.74.4"
+gh         = "2.100.0"   # required by credential.helper on Linux
+git-lfs    = "3.8.0"
+gitleaks   = "8.30.1"    # keep in lockstep with .pre-commit-config.yaml + CI
+helix      = "25.07.1"   # provides `hx` ($EDITOR)
+jq         = "1.8.2"
+prek       = "0.5.3"
+ripgrep    = "15.2.0"
+shellcheck = "0.11.0"    # so local hooks and CI lint identically
+starship   = "1.26.0"
+uv         = "0.12.14"
+zoxide     = "0.10.0"

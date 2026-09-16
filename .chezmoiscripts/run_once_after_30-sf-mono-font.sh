@@ -1,5 +1,7 @@
 #!/bin/sh
+# Ghostty is configured for SF Mono, which Apple ships inside Terminal.app.
 set -eu
+[ "$(uname)" = "Darwin" ] || exit 0
 
 SRC="/System/Applications/Utilities/Terminal.app/Contents/Resources/Fonts"
 DEST="$HOME/Library/Fonts"

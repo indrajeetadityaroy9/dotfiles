@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chezmoi apply *)",
+      "Bash(mise install *)",
+      "Bash(ps *)",
+      "Bash(kill 25310 25666)"
+    ]
+  }
+}

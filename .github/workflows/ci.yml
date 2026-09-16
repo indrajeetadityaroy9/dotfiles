@@ -1,18 +1,36 @@
 name: ci
-
 on: [push, pull_request]
+permissions:
+  contents: read
 
 jobs:
-  scan:
+  check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: jdx/mise-action@v2
+      - uses: actions/checkout@v5
+        with:
+          # gitleaks git needs real history. The old `gitleaks dir` on a
+          # depth-1 checkout only ever saw the working tree.
+          fetch-depth: 0
+      - uses: jdx/mise-action@v3
         with:
           install: false
 
-      - name: Secret scan (gitleaks, full tree)
-        run: mise exec gitleaks@latest -- gitleaks dir --no-banner -v .
+      - name: secrets (full history, repo rules)
+        run: mise exec gitleaks@8.30.1 -- gitleaks git --config .gitleaks.toml --redact --no-banner -v .
 
-      - name: Lint shell scripts (shellcheck)
-        run: mise exec shellcheck@latest -- shellcheck bootstrap.sh run_once_after_install-*.sh
+      - name: shellcheck
+        run: mise exec shellcheck@0.11.0 -- shellcheck bootstrap.sh .chezmoiscripts/*.sh
+
+      # Renders the Linux branch of every template and syntax-checks the zsh.
+      # The darwin branch is covered by `chezmoi diff` before apply, which is
+      # cheaper than keeping a macOS runner on the payroll.
+      - name: render templates + zsh -n
+        run: |
+          sudo apt-get install -y -qq zsh
+          for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
+            mise exec chezmoi@latest -- chezmoi execute-template --init \
+              --promptString git_name=ci --promptString git_email=ci@example.com \
+              < "$t" > rendered || { echo "FAILED: $t"; exit 1; }
+            case "$t" in *zsh*) zsh -n rendered && echo "zsh -n ok: $t";; esac
+          done

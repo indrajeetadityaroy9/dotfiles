@@ -1,2 +1,9 @@
 Brewfile
 .DS_Store
+
+# Machine-local escape hatches. These are referenced by the tracked configs
+# but must never be committed to a public repo.
+*.local
+*.local.toml
+dot_config/mise/conf.d/local.toml
+.chezmoi.toml

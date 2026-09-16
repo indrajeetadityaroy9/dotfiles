@@ -1,0 +1,33 @@
+# Default rules catch credentials (verified: they flag private keys already).
+# These four add the metadata class that leaked from this repo in 9a7c4af and
+# that no credential scanner looks for.
+[extend]
+useDefault = true
+
+[[rules]]
+id = "tailscale-magicdns"
+description = "Tailscale MagicDNS hostname or tailnet name"
+regex = '''[A-Za-z0-9][A-Za-z0-9-]*\.(?:[A-Za-z0-9-]+\.)?ts\.net'''
+
+[[rules]]
+id = "ssh-concrete-hostname"
+description = "SSH HostName — belongs in ~/.ssh/config.d, not this repo"
+# RE2 has no negative lookahead, so github.com is excluded via allowlist.
+regex = '''(?i)^[ \t]*HostName[ \t]+\S+'''
+  [rules.allowlist]
+  regexes = ['''(?i)HostName[ \t]+github\.com''']
+
+[[rules]]
+id = "private-ipv4"
+description = "RFC1918 private IPv4 address"
+regex = '''\b(?:10\.(?:\d{1,3}\.){2}\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3})\b'''
+
+[[rules]]
+id = "absolute-home-path"
+description = "Absolute home path leaks the local username; use ~ or $HOME"
+regex = '''(?:/Users/|/home/)[a-z][a-z0-9._-]{2,}'''
+
+[allowlist]
+# Pre-sanitisation commit that published the tailnet name. Allowlisted so CI
+# fails on NEW leaks, not this known one. Remove once the tailnet is renamed.
+commits = ["9a7c4afbdbea14c61d9594693bf7d4f5fb10385e"]

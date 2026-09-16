@@ -1,0 +1,5 @@
+# Linux-only tools. Selected by .chezmoiignore, not a template conditional.
+# Both ship Linux-only binaries upstream; on macOS btop comes from Homebrew.
+[tools]
+btop      = "1.4.7"
+fastfetch = "2.68.1"

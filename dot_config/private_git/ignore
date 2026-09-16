@@ -1,0 +1,12 @@
+# Global gitignore. Key material and env files must never enter ANY repo.
+*.pem
+*.key
+id_ed25519
+id_rsa
+.env
+.env.*
+
+.DS_Store
+.venv/
+__pycache__/
+.direnv/

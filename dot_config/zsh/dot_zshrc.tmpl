@@ -1,0 +1,106 @@
+# $ZDOTDIR/.zshrc — interactive shells only.
+
+setopt EXTENDED_GLOB
+
+# ── history ───────────────────────────────────────────────────────────────
+HISTFILE="$XDG_STATE_HOME/zsh/history"
+[[ -d ${HISTFILE:h} ]] || mkdir -p -- "${HISTFILE:h}"
+HISTSIZE=100000
+SAVEHIST=100000
+setopt EXTENDED_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
+setopt HIST_VERIFY INC_APPEND_HISTORY
+# SHARE_HISTORY is deliberately OFF: atuin owns cross-session history, and
+# running both makes the two write interleaved duplicates. Re-enable only if
+# you drop atuin.
+
+# ── completion ────────────────────────────────────────────────────────────
+{{ if ne .chezmoi.os "darwin" -}}
+ZPLUGDIR="$XDG_DATA_HOME/zsh/plugins"
+fpath=("$ZPLUGDIR/zsh-completions/src" $fpath)
+{{ end -}}
+
+autoload -Uz compinit
+_zcompdump="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+[[ -d ${_zcompdump:h} ]] || mkdir -p -- "${_zcompdump:h}"
+# Full (slow) security audit at most once a day; -C skips it otherwise.
+# Previously this ran on every shell, and wrote to ~/.cache without mkdir.
+if [[ -n ${_zcompdump}(#qN.mh+24) ]]; then
+  compinit -d "$_zcompdump"
+else
+  compinit -C -d "$_zcompdump"
+fi
+unset _zcompdump
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
+
+# ── tool init ─────────────────────────────────────────────────────────────
+# mise goes first: it is what puts every other tool below on PATH.
+eval "$(mise activate zsh)"
+
+# Guarded so a half-installed toolchain doesn't throw an error on every
+# prompt — the old unguarded `eval "$(zoxide init zsh)"` chain did.
+(( $+commands[zoxide]   )) && eval "$(zoxide init zsh)"
+(( $+commands[atuin]    )) && eval "$(atuin init zsh --disable-up-arrow)"
+(( $+commands[direnv]   )) && eval "$(direnv hook zsh)"
+(( $+commands[starship] )) && eval "$(starship init zsh)"
+
+# ── plugins ───────────────────────────────────────────────────────────────
+# fzf binds its widgets first: zsh-syntax-highlighting wraps whatever widgets
+# already exist, so it must load after fzf. The old Linux branch had this
+# backwards.
+(( $+commands[fzf] )) && source <(fzf --zsh)
+
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS: sheldon (dot_config/sheldon/plugins.toml + its own lockfile).
+# It self-locks and clones on first run, so no bootstrap step is needed.
+(( $+commands[sheldon] )) && eval "$(sheldon source)"
+{{- else -}}
+# Linux: cloned by .chezmoiscripts/run_once_after_20-zsh-plugins.sh, because
+# sheldon's libgit2 backend is unreliable there.
+[[ -r $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
+  source "$ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
+
+# Must be sourced last of all.
+[[ -r $ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
+  source "$ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+{{- end }}
+
+# ── aliases ───────────────────────────────────────────────────────────────
+alias ls='eza --git --icons=auto --group-directories-first'
+alias ll='eza -lah --git --icons=auto --group-directories-first'
+alias lt='eza --tree --level=2 --git-ignore'
+alias cat='bat --paging=never'
+# btop ships no macOS binary upstream (Homebrew builds it), so guard it.
+(( $+commands[btop] )) && alias top='btop'
+# `du` is deliberately NOT aliased to dua: dua rejects du's flags, so the
+# previous alias turned muscle-memory `du -sh *` into an error.
+alias dui='dua interactive'
+
+# ── functions ─────────────────────────────────────────────────────────────
+# Read a secret from the OS keyring. Nothing secret is ever stored in this
+# repo; this is the only sanctioned way to get one into a shell.
+# (Renamed from `keychain`, which shadowed the funtoo `keychain` binary.)
+secret() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
+{{ if eq .chezmoi.os "linux" }}
+# Run a command under a hard memory cap so a runaway training job can't OOM
+# the box. Override per machine: export MLGUARD_MAX_MEM=48G
+mlguard() {
+  sudo systemd-run --scope \
+    -p MemoryMax="${MLGUARD_MAX_MEM:-110G}" -p MemorySwapMax=0 \
+    --uid="$(id -u)" --gid="$(id -g)" "$@"
+}
+
+# gnome-keyring for SSH/secret access on headless logins.
+if [[ -z $GNOME_KEYRING_CONTROL ]] && (( $+commands[gnome-keyring-daemon] )); then
+  eval "$(gnome-keyring-daemon --start 2>/dev/null)" && \
+    export GNOME_KEYRING_CONTROL SSH_AUTH_SOCK
+fi
+{{- end }}
+
+# ── machine-local overrides ───────────────────────────────────────────────
+# Untracked and gitignored. Anything host-specific, private, or experimental
+# goes here so it never reaches this public repo.
+[[ -r $ZDOTDIR/zshrc.local ]] && source "$ZDOTDIR/zshrc.local"

@@ -1,0 +1,24 @@
+# ~/.zshenv — sourced by EVERY zsh (scripts, non-interactive, interactive).
+# Keep it minimal and side-effect free: XDG paths, ZDOTDIR, PATH, EDITOR.
+
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
+
+# Everything else zsh reads (.zprofile/.zshrc/.zlogin) comes from here,
+# which is what keeps $HOME free of zsh dotfiles.
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+# `typeset -U` makes $path self-deduplicating, so nesting shells can no longer
+# grow PATH — this replaces the old _ZPROFILE_SOURCED guard and the
+# `.zshrc sources .zprofile` hack. NB: zsh drops the -U flag once .zshenv
+# finishes, so .zprofile re-asserts it; the dedupe below still applies here.
+typeset -U path fpath
+path=("$HOME/.local/bin" $path)
+
+export VISUAL=hx
+export EDITOR="$VISUAL"
+{{ if eq .chezmoi.os "darwin" }}
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+{{- end }}
