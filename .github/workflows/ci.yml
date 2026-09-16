@@ -28,8 +28,10 @@ jobs:
       - name: render templates + zsh -n
         run: |
           sudo apt-get install -y -qq zsh
+          mise install chezmoi@2.72.2
+          CHEZMOI="$(mise where chezmoi@2.72.2)/chezmoi"
           for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
-            mise exec chezmoi@latest -- chezmoi \
+            "$CHEZMOI" \
               --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
               execute-template --init \
               --promptString git_name=ci --promptString git_email=ci@example.com \
