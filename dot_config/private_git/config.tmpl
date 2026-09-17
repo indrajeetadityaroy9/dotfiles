@@ -1,11 +1,8 @@
-# ~/.config/git/config — git reads this only when ~/.gitconfig is absent.
-
 [user]
 	name = {{ .git_name | quote }}
 	email = {{ .git_email | quote }}
 	signingkey = ~/.ssh/id_ed25519.pub
 
-# Machine-local identity/overrides. Untracked — private things go here.
 [include]
 	path = config.local
 
@@ -13,7 +10,6 @@
 	defaultBranch = main
 	templateDir = ~/.config/git/template
 [core]
-	# editor unset on purpose: inherits $EDITOR (hx). `editor = vim` overrode it.
 	excludesFile = ~/.config/git/ignore
 	fsmonitor = true
 	untrackedCache = true
@@ -29,8 +25,6 @@
 [gpg "ssh"]
 	allowedSignersFile = ~/.config/git/allowed_signers
 
-# Reject objects that fail integrity checks. transfer.fsckObjects is the
-# fallback for both fetch and receive, so one line covers both.
 [transfer]
 	fsckObjects = true
 
@@ -61,12 +55,9 @@
 	autocorrect = prompt
 
 [credential]
-	# PATH lookup, not /usr/bin/gh — that path does not exist on macOS.
 	helper = {{ if eq .chezmoi.os "darwin" }}osxkeychain{{ else }}!gh auth git-credential{{ end }}
 
 [url "git@github.com:"]
-	# pushInsteadOf, not insteadOf: rewriting fetches breaks cloning public
-	# repos on machines without your key (containers, CI, go get, pip).
 	pushInsteadOf = https://github.com/
 
 [filter "lfs"]

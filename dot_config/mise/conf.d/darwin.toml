@@ -1,3 +1,2 @@
-# macOS-only tools. Selected by .chezmoiignore, not a template conditional.
 [tools]
-sheldon = "0.8.5"   # zsh plugin manager; Linux clones directly instead
+sheldon = "0.8.5"

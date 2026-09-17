@@ -1,5 +1,4 @@
 #!/bin/sh
-# Linux only: macOS uses sheldon, whose libgit2 backend is unreliable here.
 set -eu
 [ "$(uname)" = "Linux" ] || exit 0
 

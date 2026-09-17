@@ -1,12 +1,10 @@
-# Run with prek. Two hooks: secrets, and shell correctness. Nothing cosmetic.
 repos:
   - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.30.1 # lockstep with dot_config/mise/config.toml + ci.yml
+    rev: v8.30.1
     hooks:
       - id: gitleaks
         args: ["--config", ".gitleaks.toml"]
 
-  # Local, so hooks and CI share the one pinned mise version.
   - repo: local
     hooks:
       - id: shellcheck

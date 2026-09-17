@@ -1,16 +1,8 @@
-{{/*
-  Repo-management files. They live in the source dir but are NOT dotfiles.
-  chezmoi only auto-ignores source entries beginning with a dot, so without
-  these three lines it deploys them straight into $HOME — which is exactly
-  what produced the stray ~/bootstrap.sh, ~/Brewfile and ~/renovate.json.
-*/ -}}
 README.md
 bootstrap.sh
 renovate.json
 Brewfile
 
-{{/* OS gating. Replaces the {{ if }} blocks that used to live inside the
-     mise config and made it unparseable as TOML for Renovate. */ -}}
 {{ if ne .chezmoi.os "darwin" -}}
 .config/ghostty/config
 .config/mise/conf.d/darwin.toml
@@ -19,11 +11,6 @@ Brewfile
 .config/mise/conf.d/linux.toml
 {{ end }}
 
-{{/*
-  Key material, host-specific config, and machine-local overrides.
-  None of these exist in the source tree; listing them stops a careless
-  `chezmoi add` from ever pulling one into this public repo.
-*/ -}}
 .ssh/id_*
 .ssh/known_hosts*
 .ssh/authorized_keys

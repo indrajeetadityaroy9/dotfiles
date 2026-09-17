@@ -9,8 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          # gitleaks git needs real history. The old `gitleaks dir` on a
-          # depth-1 checkout only ever saw the working tree.
           fetch-depth: 0
       - uses: jdx/mise-action@v3
         with:
@@ -22,9 +20,6 @@ jobs:
       - name: shellcheck
         run: mise exec shellcheck@0.11.0 -- shellcheck bootstrap.sh .chezmoiscripts/*.sh
 
-      # Renders the Linux branch of every template and syntax-checks the zsh.
-      # The darwin branch is covered by `chezmoi diff` before apply, which is
-      # cheaper than keeping a macOS runner on the payroll.
       - name: render templates + zsh -n
         run: |
           sudo apt-get install -y -qq zsh

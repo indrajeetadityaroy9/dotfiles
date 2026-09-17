@@ -1,5 +1,4 @@
 #!/bin/sh
-# Ghostty is configured for SF Mono, which Apple ships inside Terminal.app.
 set -eu
 [ "$(uname)" = "Darwin" ] || exit 0
 
