@@ -2,14 +2,26 @@
 
 set -eu
 
-command -v mise >/dev/null || { echo "install mise first: https://mise.run" >&2; exit 1; }
+ROOT=$(CDPATH='' cd -- "$(dirname -- "$0")" && pwd)
 
-mise install
-
-if command -v prek >/dev/null; then
-    ( cd "$(chezmoi source-path)" && prek install )
-else
-    echo "prek not on PATH yet — open a new shell and re-run for git hooks." >&2
+if [ "$(uname)" = "Darwin" ]; then
+    command -v brew >/dev/null || { echo "install Homebrew first: https://brew.sh" >&2; exit 1; }
+    brew bundle install --no-upgrade --file "$ROOT/Brewfile"
+elif ! command -v mise >/dev/null; then
+    command -v curl >/dev/null || { echo "curl is required to install mise" >&2; exit 1; }
+    curl -fsSL https://mise.run | sh
+    PATH="$HOME/.local/bin:$PATH"
+    export PATH
 fi
 
-echo "bootstrap done. Machine-specific steps are listed in the README."
+command -v mise >/dev/null || { echo "mise installation failed" >&2; exit 1; }
+command -v chezmoi >/dev/null || { echo "chezmoi is required" >&2; exit 1; }
+
+chezmoi --source "$ROOT" apply
+(
+    cd "$ROOT"
+    mise install
+    mise exec -- prek install
+)
+
+echo "bootstrap complete"

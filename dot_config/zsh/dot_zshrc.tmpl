@@ -7,10 +7,8 @@ SAVEHIST=100000
 setopt EXTENDED_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 setopt HIST_VERIFY INC_APPEND_HISTORY
 
-{{ if ne .chezmoi.os "darwin" -}}
-ZPLUGDIR="$XDG_DATA_HOME/zsh/plugins"
+ZPLUGDIR="$HOME/.local/share/zsh/plugins"
 fpath=("$ZPLUGDIR/zsh-completions/src" $fpath)
-{{ end -}}
 
 autoload -Uz compinit
 _zcompdump="$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
@@ -36,15 +34,11 @@ eval "$(mise activate zsh)"
 
 (( $+commands[fzf] )) && source <(fzf --zsh)
 
-{{ if eq .chezmoi.os "darwin" -}}
-(( $+commands[sheldon] )) && eval "$(sheldon source)"
-{{- else -}}
 [[ -r $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
   source "$ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
 [[ -r $ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
   source "$ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-{{- end }}
 
 alias ls='eza --git --icons=auto --group-directories-first'
 alias ll='eza -lah --git --icons=auto --group-directories-first'

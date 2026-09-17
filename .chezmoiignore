@@ -5,11 +5,7 @@ Brewfile
 
 {{ if ne .chezmoi.os "darwin" -}}
 .config/ghostty/config
-.config/mise/conf.d/darwin.toml
 {{ end -}}
-{{ if ne .chezmoi.os "linux" -}}
-.config/mise/conf.d/linux.toml
-{{ end }}
 
 .ssh/id_*
 .ssh/known_hosts*

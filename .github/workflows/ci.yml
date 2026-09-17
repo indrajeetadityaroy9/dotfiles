@@ -31,5 +31,9 @@ jobs:
               execute-template --init \
               --promptString git_name=ci --promptString git_email=ci@example.com \
               < "$t" > rendered || { echo "FAILED: $t"; exit 1; }
-            case "$t" in *zsh*) zsh -n rendered && echo "zsh -n ok: $t";; esac
+            case "$t" in
+              *zsh*) zsh -n rendered ;;
+              *.sh.tmpl) sh -n rendered && mise exec shellcheck@0.11.0 -- shellcheck rendered ;;
+            esac
+            echo "template ok: $t"
           done

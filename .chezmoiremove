@@ -1,3 +1,6 @@
 .gitconfig
 .zshrc
 .zprofile
+.config/mise/conf.d/darwin.toml
+.config/mise/conf.d/linux.toml
+.config/sheldon/plugins.toml
