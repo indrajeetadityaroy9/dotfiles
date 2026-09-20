@@ -14,5 +14,4 @@ mise.lock
 .config/git/allowed_signers
 .config/git/allowed_signers.local
 .config/zsh/zshrc.local
-.config/mise/conf.d/local.toml
 .config/gh

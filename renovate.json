@@ -1,26 +1,41 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
-  "enabledManagers": ["github-actions", "mise"],
+  "extends": [
+    "config:recommended"
+  ],
+  "enabledManagers": [
+    "github-actions",
+    "mise"
+  ],
   "mise": {
     "managerFilePatterns": [
       "mise.toml",
-      "dot_config/mise/config.toml",
-      "dot_config/mise/conf.d/*.toml"
+      "dot_config/mise/config.toml"
     ]
   },
   "packageRules": [
     {
       "description": "node/rust/java track channels; mise.lock pins the real build.",
-      "matchPackageNames": ["node", "rust", "java"],
+      "matchPackageNames": [
+        "node",
+        "rust",
+        "java"
+      ],
       "enabled": false
     },
     {
       "description": "One PR for routine bumps.",
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "groupName": "tools"
     }
   ],
-  "schedule": ["before 9am on monday"],
-  "labels": ["dependencies"]
+  "schedule": [
+    "before 9am on monday"
+  ],
+  "labels": [
+    "dependencies"
+  ]
 }

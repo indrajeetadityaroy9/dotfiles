@@ -14,21 +14,8 @@ jobs:
         with:
           install: false
 
-      - name: install locked tools
-        run: |
-          mise trust
-          mise install
+      - run: mise trust && mise install
         env:
           MISE_LOCKED: "1"
 
-      - name: secrets (full history, repo rules)
-        run: mise run secrets
-
-      - name: shellcheck
-        run: mise run lint
-
-      - name: render templates + zsh -n
-        run: mise run render
-
-      - name: check non-templated configs
-        run: mise run check-static
+      - run: mise run check

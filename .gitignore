@@ -1,11 +1,5 @@
-.DS_Store
-
 *.local
 *.local.toml
-dot_config/mise/conf.d/local.toml
 .chezmoi.toml
-
-mise.local.toml
 mise.local.lock
-.mise/locks/mise.local/
 .rendered.tmp
