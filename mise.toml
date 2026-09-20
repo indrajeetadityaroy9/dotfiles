@@ -17,6 +17,24 @@ run = "shellcheck bootstrap.sh .chezmoiscripts/*.sh"
 description = "scan full history for secrets"
 run = "gitleaks git --config .gitleaks.toml --redact --no-banner -v ."
 
+[tasks.render]
+description = "render every template and syntax-check the result"
+run = """
+set -eu
+for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
+    chezmoi --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
+        execute-template --init \
+        --promptString git_name=ci --promptString git_email=ci@example.com \
+        <"$t" >"$MISE_PROJECT_ROOT/.rendered.tmp" || { echo "FAILED: $t"; exit 1; }
+    case "$t" in
+        *zsh*) zsh -n "$MISE_PROJECT_ROOT/.rendered.tmp" ;;
+        *.sh.tmpl) sh -n "$MISE_PROJECT_ROOT/.rendered.tmp" && shellcheck "$MISE_PROJECT_ROOT/.rendered.tmp" ;;
+    esac
+    echo "template ok: $t"
+done
+rm -f "$MISE_PROJECT_ROOT/.rendered.tmp"
+"""
+
 [tasks.diff]
 description = "preview what chezmoi would change"
 run = "chezmoi --source . diff"

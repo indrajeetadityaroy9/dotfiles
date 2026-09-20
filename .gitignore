@@ -8,3 +8,4 @@ dot_config/mise/conf.d/local.toml
 mise.local.toml
 mise.local.lock
 .mise/locks/mise.local/
+.rendered.tmp

@@ -14,24 +14,20 @@ jobs:
         with:
           install: false
 
+      - name: install locked tools
+        run: |
+          mise trust
+          mise install
+        env:
+          MISE_LOCKED: "1"
+
       - name: secrets (full history, repo rules)
-        run: mise exec -- gitleaks git --config .gitleaks.toml --redact --no-banner -v .
+        run: mise run secrets
 
       - name: shellcheck
-        run: mise exec -- shellcheck bootstrap.sh .chezmoiscripts/*.sh
+        run: mise run lint
 
       - name: render templates + zsh -n
         run: |
           sudo apt-get install -y -qq zsh
-          for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
-            mise exec -- chezmoi \
-              --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
-              execute-template --init \
-              --promptString git_name=ci --promptString git_email=ci@example.com \
-              < "$t" > rendered || { echo "FAILED: $t"; exit 1; }
-            case "$t" in
-              *zsh*) zsh -n rendered ;;
-              *.sh.tmpl) sh -n rendered && mise exec -- shellcheck rendered ;;
-            esac
-            echo "template ok: $t"
-          done
+          mise run render
