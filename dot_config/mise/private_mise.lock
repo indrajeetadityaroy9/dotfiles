@@ -161,26 +161,26 @@ url = "https://github.com/junegunn/fzf/releases/download/v0.74.4/fzf-0.74.4-darw
 url_api = "https://api.github.com/repos/junegunn/fzf/releases/assets/558287774"
 
 [[tools.gh]]
-version = "2.100.0"
+version = "2.101.0"
 backend = "aqua:cli/cli"
-specifiers = ["2.100.0"]
+specifiers = ["2.101.0"]
 
 [tools.gh."platforms.linux-arm64"]
-checksum = "sha256:ea4e7a581a32ccad6cc7923cb1576ac5859ba4b9a16ab22eb8f8a96e78e2e961"
-url = "https://github.com/cli/cli/releases/download/v2.100.0/gh_2.100.0_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/cli/cli/releases/assets/542974279"
+checksum = "sha256:b57e8063f18862647c9d22727c32e9da1b963f8bf9db648fe123a6975695640f"
+url = "https://github.com/cli/cli/releases/download/v2.101.0/gh_2.101.0_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/cli/cli/releases/assets/565857147"
 provenance = "github-attestations"
 
 [tools.gh."platforms.linux-x64"]
-checksum = "sha256:e4d4bb4498e8d007abe545b6568926793ace1b6447da598294a610018cb164be"
-url = "https://github.com/cli/cli/releases/download/v2.100.0/gh_2.100.0_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/cli/cli/releases/assets/542974264"
+checksum = "sha256:9bca2d1c16825f109907a23307628a2f0698fbf99662b73a5cf0b020293072b8"
+url = "https://github.com/cli/cli/releases/download/v2.101.0/gh_2.101.0_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/cli/cli/releases/assets/565857134"
 provenance = "github-attestations"
 
 [tools.gh."platforms.macos-arm64"]
-checksum = "sha256:45f9a62da2f6e641a7fad57e2ce39656dfd7ef331372d80a2a2aed65abb01642"
-url = "https://github.com/cli/cli/releases/download/v2.100.0/gh_2.100.0_macOS_arm64.zip"
-url_api = "https://api.github.com/repos/cli/cli/releases/assets/542974295"
+checksum = "sha256:e4303e39d8f07141c4bad4b99b01079f05029c59b27076e8fbc825c985ecdd8b"
+url = "https://github.com/cli/cli/releases/download/v2.101.0/gh_2.101.0_macOS_arm64.zip"
+url_api = "https://api.github.com/repos/cli/cli/releases/assets/565857200"
 provenance = "github-attestations"
 
 [[tools.git-lfs]]
@@ -362,49 +362,49 @@ specifiers = ["3.2.4"]
 uv = { path = "locks/pypi-httpie/3.2.4", digest = "sha256:8575d6fbb1b2f585fa9517b7dbc11784427557e27639137d33fc2da95b1319ba" }
 
 [[tools."pypi:huggingface-hub"]]
-version = "1.14.0"
+version = "1.31.0"
 backend = "pypi:huggingface-hub"
-specifiers = ["1.14.0"]
-uv = { path = "locks/pypi-huggingface-hub/1.14.0~82f6424e", digest = "sha256:dd39ee2293efcf61540ebd7e8281bc4ba362428e46e52f39ac73cc454420c2bc" }
-
-[tools."pypi:huggingface-hub".options]
-with = '["click"]'
+specifiers = ["1.31.0"]
+uv = { path = "locks/pypi-huggingface-hub/1.31.0", digest = "sha256:3f0cb3fe4d6ea07112933c8b94472aded4b112997e6013161c9f5ee3e73f1616" }
 
 [[tools."pypi:ipython"]]
-version = "9.13.0"
+version = "9.17.1"
 backend = "pypi:ipython"
-specifiers = ["9.13.0"]
-uv = { path = "locks/pypi-ipython/9.13.0", digest = "sha256:41e02d37212fbefb29d08dbd4f64b3dfb4d8dc71ee46f292418201476b8390bb" }
+specifiers = ["9.17.1"]
+uv = { path = "locks/pypi-ipython/9.17.1", digest = "sha256:337f43b0a23e6d6f9a8b23bd1163966c863fd21a6243c41f9bf109740a6aec11" }
 
 [[tools."pypi:maturin"]]
-version = "1.13.3"
+version = "1.15.0"
 backend = "pypi:maturin"
-specifiers = ["1.13.3"]
-uv = { path = "locks/pypi-maturin/1.13.3", digest = "sha256:8f3db5f3b0b1eda2380005c5a5adf0de5de2d17aaf75fb86e37bb45e52a80249" }
+specifiers = ["1.15.0"]
+uv = { path = "locks/pypi-maturin/1.15.0", digest = "sha256:3696e83f3d22783413cc4cc97f1d08cb17b2cdcd4f0f364469861116050f7fde" }
 
 [[tools."pypi:mypy"]]
-version = "2.0.0"
+version = "2.3.1"
 backend = "pypi:mypy"
-specifiers = ["2.0.0"]
-uv = { path = "locks/pypi-mypy/2.0.0", digest = "sha256:21c74c9800be030079ae6f1e2cce7a756e6cbdb9ce7c9c61e91e3b0c99b169df" }
+specifiers = ["2.3.1"]
+uv = { path = "locks/pypi-mypy/2.3.1", digest = "sha256:d9663ec8dd95e4259cd3bf6167a32a7ebffaf737cc34ec7b7ba4f867a450b869" }
 
 [[tools."pypi:pytest"]]
-version = "9.0.3"
+version = "9.1.1"
 backend = "pypi:pytest"
-specifiers = ["9.0.3"]
-uv = { path = "locks/pypi-pytest/9.0.3", digest = "sha256:95ea984969a0e509e4eef05c0d9c13d7e259985ae13acedc4fa0c6446ac6c029" }
+specifiers = ["9.1.1"]
+uv = { path = "locks/pypi-pytest/9.1.1", digest = "sha256:13101d6f03e48030fdd194a119c099188e3ddfe687d8855645d256457d42ca2a" }
 
 [[tools."pypi:python-dotenv"]]
-version = "1.2.2"
+version = "1.2.3"
 backend = "pypi:python-dotenv"
-specifiers = ["1.2.2"]
-uv = { path = "locks/pypi-python-dotenv/1.2.2", digest = "sha256:64edbaad654fbfe9d667a275ed0c6256b1ae8b004267cdcdc2ed645a5d92367b" }
+specifiers = ["1.2.3"]
+uv = { path = "locks/pypi-python-dotenv/1.2.3~503ed615", digest = "sha256:89e2e4201b769cdcaf24ace88b45fcb73a193a1abedb91f4ec32370a4cf3346d" }
+
+[tools."pypi:python-dotenv".options]
+extras = "cli"
 
 [[tools."pypi:ruff"]]
-version = "0.15.12"
+version = "0.16.8"
 backend = "pypi:ruff"
-specifiers = ["0.15.12"]
-uv = { path = "locks/pypi-ruff/0.15.12", digest = "sha256:5b3b54aa1a5de058871956bf01d3b181472c03631e67fc2c40f7e2d2b1f8f7cf" }
+specifiers = ["0.16.8"]
+uv = { path = "locks/pypi-ruff/0.16.8", digest = "sha256:8f8c37667a4477505df7ab94ccf648e92c835999c761336ad0c428deae1fb644" }
 
 [[tools.python]]
 version = "3.13.13"
@@ -492,47 +492,50 @@ url = "https://github.com/starship/starship/releases/download/v1.26.0/starship-a
 url_api = "https://api.github.com/repos/starship/starship/releases/assets/460374577"
 
 [[tools.uv]]
-version = "0.12.14"
+version = "0.12.15"
 backend = "aqua:astral-sh/uv"
-specifiers = ["0.12.14"]
+specifiers = ["0.12.15"]
 
 [tools.uv."platforms.linux-arm64"]
-checksum = "sha256:571b5c73c9bcc294f8087f22613edb7c7ceb191f4dbf8cafd3f2ff15e6147d36"
-url = "https://github.com/astral-sh/uv/releases/download/0.12.14/uv-aarch64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/564686494"
+checksum = "sha256:0e9a3499b0587d449c9ff684c0160da607826e4af1cee220bc87f378702d3e08"
+url = "https://github.com/astral-sh/uv/releases/download/0.12.15/uv-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/565630758"
 provenance = "github-attestations"
 
 [tools.uv."platforms.linux-x64"]
-checksum = "sha256:df163630683e5a2106d3320e2a448fde8eda5e7b9b47f617c5c332769728e735"
-url = "https://github.com/astral-sh/uv/releases/download/0.12.14/uv-x86_64-unknown-linux-musl.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/564686600"
+checksum = "sha256:f97935763c04be3e692460a7aaeaaab8fc3b78fcf8b389da820b38ae7423a638"
+url = "https://github.com/astral-sh/uv/releases/download/0.12.15/uv-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/565630898"
 provenance = "github-attestations"
 
 [tools.uv."platforms.macos-arm64"]
-checksum = "sha256:dfed5683c5873d65eff8476eb93526059b81e5646a68305b5c94a26b29990894"
-url = "https://github.com/astral-sh/uv/releases/download/0.12.14/uv-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/564686475"
+checksum = "sha256:dc304b9ed1b24174572290fba60ac3f6fe63c73a671f0439e62a91375841964d"
+url = "https://github.com/astral-sh/uv/releases/download/0.12.15/uv-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/uv/releases/assets/565630750"
 provenance = "github-attestations"
 
 [[tools.yq]]
-version = "4.48.1"
+version = "4.53.6"
 backend = "aqua:mikefarah/yq"
-specifiers = ["4.48.1"]
+specifiers = ["4.53.6"]
 
 [tools.yq."platforms.linux-arm64"]
-checksum = "sha256:0e46b5b926a9e57c526fa2bd8f8e38b7e17fbf6e2403ff1741f3b268e3363a9e"
-url = "https://github.com/mikefarah/yq/releases/download/v4.48.1/yq_linux_arm64"
-url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/303270688"
+checksum = "sha256:88a1016bc1d657375a35864e4f44b6f333df8ff97b559f51bba0adcb2169df09"
+url = "https://github.com/mikefarah/yq/releases/download/v4.53.6/yq_linux_arm64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/522028007"
+provenance = "cosign"
 
 [tools.yq."platforms.linux-x64"]
-checksum = "sha256:99df6047f5b577a9d25f969f7c3823ada3488de2e2115b30a0abb10d9324fd9f"
-url = "https://github.com/mikefarah/yq/releases/download/v4.48.1/yq_linux_amd64"
-url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/303270684"
+checksum = "sha256:c5f056448f973ae7d39b5401949648a78f2dc1947d6a8eb65be60d5c504b9385"
+url = "https://github.com/mikefarah/yq/releases/download/v4.53.6/yq_linux_amd64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/522028022"
+provenance = "cosign"
 
 [tools.yq."platforms.macos-arm64"]
-checksum = "sha256:05e19db817704d945f28f73763cc2b3c5142ef114a991f57b83bd034c2b86646"
-url = "https://github.com/mikefarah/yq/releases/download/v4.48.1/yq_darwin_arm64"
-url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/303270716"
+checksum = "sha256:cceb0b8d71ea5294334121f8429f33f92b920e7217d904a2f9f35443968ac424"
+url = "https://github.com/mikefarah/yq/releases/download/v4.53.6/yq_darwin_arm64"
+url_api = "https://api.github.com/repos/mikefarah/yq/releases/assets/522028033"
+provenance = "cosign"
 
 [[tools.zoxide]]
 version = "0.10.0"
