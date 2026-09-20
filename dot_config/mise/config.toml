@@ -1,12 +1,18 @@
 [settings]
 lockfile = true
+lockfile_mode = "generate"
 lockfile_platforms = ["macos-arm64", "linux-arm64", "linux-x64"]
+minimum_release_age = "3d"
 idiomatic_version_file_enable_tools = []
 
+[settings.python]
+uv_venv_auto = true
+
 [tools]
+uv     = "0.12.14"
+python = "3.13"
 node   = "lts"
 rust   = "stable"
-python = "3.13"
 java   = "temurin-21"
 
 atuin      = "18.22.0"
@@ -27,16 +33,16 @@ prek       = "0.5.3"
 ripgrep    = "15.2.0"
 shellcheck = "0.11.0"
 starship   = "1.26.0"
-uv         = "0.12.14"
+yq         = "4.48.1"
 zoxide     = "0.10.0"
 
-"pipx:httpie" = { version = "3.2.4", depends = ["python", "uv"] }
-"pipx:huggingface-hub" = { version = "1.14.0", extras = "cli", depends = ["python", "uv"] }
-"pipx:ipython" = { version = "9.13.0", depends = ["python", "uv"] }
-"pipx:maturin" = { version = "1.13.3", depends = ["python", "uv"] }
-"pipx:mypy" = { version = "2.0.0", depends = ["python", "uv"] }
-"pipx:pytest" = { version = "9.0.3", depends = ["python", "uv"] }
-"pipx:python-dotenv" = { version = "1.2.2", depends = ["python", "uv"] }
-"pipx:ruff" = { version = "0.15.12", depends = ["python", "uv"] }
-"npm:corepack" = { version = "0.34.6", depends = "node" }
-"npm:pyright" = { version = "1.1.410", depends = "node" }
+"pypi:httpie"           = "3.2.4"
+"pypi:huggingface-hub"  = { version = "1.14.0", with = ["click"] }
+"pypi:ipython"          = "9.13.0"
+"pypi:maturin"          = "1.13.3"
+"pypi:mypy"             = "2.0.0"
+"pypi:pytest"           = "9.0.3"
+"pypi:python-dotenv"    = "1.2.2"
+"pypi:ruff"             = "0.15.12"
+"npm:corepack"          = "0.34.6"
+"npm:pyright"           = "1.1.410"

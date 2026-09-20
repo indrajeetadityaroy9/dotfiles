@@ -2,6 +2,8 @@ README.md
 bootstrap.sh
 renovate.json
 Brewfile
+mise.toml
+mise.lock
 
 {{ if ne .chezmoi.os "darwin" -}}
 .config/ghostty/config

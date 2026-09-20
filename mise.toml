@@ -1,0 +1,30 @@
+[settings]
+lockfile = true
+lockfile_mode = "generate"
+lockfile_platforms = ["macos-arm64", "linux-arm64", "linux-x64"]
+
+[tools]
+chezmoi    = "2.72.2"
+gitleaks   = "8.30.1"
+prek       = "0.5.3"
+shellcheck = "0.11.0"
+
+[tasks.lint]
+description = "shellcheck all shell sources"
+run = "shellcheck bootstrap.sh .chezmoiscripts/*.sh"
+
+[tasks.secrets]
+description = "scan full history for secrets"
+run = "gitleaks git --config .gitleaks.toml --redact --no-banner -v ."
+
+[tasks.diff]
+description = "preview what chezmoi would change"
+run = "chezmoi --source . diff"
+
+[tasks.apply]
+description = "apply dotfiles from this working tree"
+run = "chezmoi --source . apply"
+
+[tasks.update]
+description = "bump locked tool versions without editing configs"
+run = ["mise lock --bump", "mise lock --global --bump"]

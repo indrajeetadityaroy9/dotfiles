@@ -15,25 +15,23 @@ jobs:
           install: false
 
       - name: secrets (full history, repo rules)
-        run: mise exec gitleaks@8.30.1 -- gitleaks git --config .gitleaks.toml --redact --no-banner -v .
+        run: mise exec -- gitleaks git --config .gitleaks.toml --redact --no-banner -v .
 
       - name: shellcheck
-        run: mise exec shellcheck@0.11.0 -- shellcheck bootstrap.sh .chezmoiscripts/*.sh
+        run: mise exec -- shellcheck bootstrap.sh .chezmoiscripts/*.sh
 
       - name: render templates + zsh -n
         run: |
           sudo apt-get install -y -qq zsh
-          mise install chezmoi@2.72.2
-          CHEZMOI="$(mise where chezmoi@2.72.2)/chezmoi"
           for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
-            "$CHEZMOI" \
+            mise exec -- chezmoi \
               --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
               execute-template --init \
               --promptString git_name=ci --promptString git_email=ci@example.com \
               < "$t" > rendered || { echo "FAILED: $t"; exit 1; }
             case "$t" in
               *zsh*) zsh -n rendered ;;
-              *.sh.tmpl) sh -n rendered && mise exec shellcheck@0.11.0 -- shellcheck rendered ;;
+              *.sh.tmpl) sh -n rendered && mise exec -- shellcheck rendered ;;
             esac
             echo "template ok: $t"
           done

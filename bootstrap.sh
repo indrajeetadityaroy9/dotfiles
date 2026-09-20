@@ -15,13 +15,10 @@ elif ! command -v mise >/dev/null; then
 fi
 
 command -v mise >/dev/null || { echo "mise installation failed" >&2; exit 1; }
-command -v chezmoi >/dev/null || { echo "chezmoi is required" >&2; exit 1; }
 
-chezmoi --source "$ROOT" apply
-(
-    cd "$ROOT"
-    mise install
-    mise exec -- prek install
-)
+cd "$ROOT"
+mise install --locked
+mise exec -- chezmoi --source "$ROOT" apply
+mise exec -- prek install
 
 echo "bootstrap complete"

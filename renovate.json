@@ -1,21 +1,22 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended"],
-  "enabledManagers": ["github-actions", "pre-commit", "mise"],
+  "enabledManagers": ["github-actions", "mise"],
   "mise": {
     "managerFilePatterns": [
+      "mise.toml",
       "dot_config/mise/config.toml",
       "dot_config/mise/conf.d/*.toml"
     ]
   },
   "packageRules": [
     {
-      "description": "node/rust track channels; mise.lock pins the real build.",
-      "matchPackageNames": ["node", "rust"],
+      "description": "node/rust/java track channels; mise.lock pins the real build.",
+      "matchPackageNames": ["node", "rust", "java"],
       "enabled": false
     },
     {
-      "description": "One PR for routine bumps. gitleaks is pinned in three files, so grouping keeps them in lockstep.",
+      "description": "One PR for routine bumps.",
       "matchUpdateTypes": ["minor", "patch"],
       "groupName": "tools"
     }
