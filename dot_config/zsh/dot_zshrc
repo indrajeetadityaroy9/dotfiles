@@ -7,7 +7,7 @@ SAVEHIST=100000
 setopt EXTENDED_HISTORY HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS
 setopt HIST_VERIFY INC_APPEND_HISTORY
 
-ZPLUGDIR="$HOME/.local/share/zsh/plugins"
+ZPLUGDIR="$XDG_DATA_HOME/zsh/plugins"
 fpath=("$ZPLUGDIR/zsh-completions/src" $fpath)
 
 autoload -Uz compinit
@@ -28,28 +28,24 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
 
-eval "$(mise activate zsh)"
-
 (( $+commands[zoxide]   )) && eval "$(zoxide init zsh)"
 (( $+commands[atuin]    )) && eval "$(atuin init zsh --disable-up-arrow)"
-(( $+commands[direnv]   )) && eval "$(direnv hook zsh)"
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
-(( $+commands[fzf] )) && source <(fzf --zsh)
+(( $+commands[fzf] )) && [[ -o zle && -t 0 && -t 1 ]] && source <(fzf --zsh)
 
 [[ -r $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
   source "$ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-[[ -r $ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
-  source "$ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-alias ls='eza --git --icons=auto --group-directories-first'
 alias ll='eza -lah --git --icons=auto --group-directories-first'
 alias lt='eza --tree --level=2 --git-ignore'
-alias cat='bat --paging=never'
-(( $+commands[btop] )) && alias top='btop'
 alias dui='dua interactive'
 
 secret() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
 
 [[ -r $ZDOTDIR/zshrc.local ]] && source "$ZDOTDIR/zshrc.local"
+
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+
+[[ -r $ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
+  source "$ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

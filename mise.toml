@@ -36,10 +36,12 @@ rm -f "$MISE_PROJECT_ROOT/.rendered.tmp"
 """
 
 [tasks.check-static]
-description = "syntax-check the non-templated zsh and ssh configs"
+description = "syntax-check zsh and ssh configs"
 run = """
 set -eu
+zsh -n dot_zshenv
 zsh -n dot_config/zsh/dot_zprofile
+zsh -n dot_config/zsh/dot_zshrc
 ssh -G -F private_dot_ssh/private_config github.com >/dev/null
 echo "static configs ok"
 """
@@ -57,5 +59,9 @@ description = "apply dotfiles from this working tree"
 run = "chezmoi --source . apply"
 
 [tasks.update]
-description = "bump locked tool versions without editing configs"
-run = ["mise lock --bump", "mise lock --global --bump"]
+description = "bump project and global locks, then capture global lock output"
+run = [
+    "mise lock --bump",
+    "mise lock --global --bump",
+    "chezmoi --source . re-add ~/.config/mise/mise.lock ~/.config/mise/locks",
+]

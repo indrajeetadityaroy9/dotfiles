@@ -1,21 +1,21 @@
 [".local/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"]
 type = "file"
-url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/master/zsh-autosuggestions.zsh"
-refreshPeriod = "168h"
+url = "https://raw.githubusercontent.com/zsh-users/zsh-autosuggestions/85919cd1ffa7d2d5412f6d3fe437ebdbeeec4fc5/zsh-autosuggestions.zsh"
+checksum.sha256 = "eec7ba8f7a71414ace0ea0fab0908d005b24cf65d83b169c0ff97815d3cfc51a"
 
 [".local/share/zsh/plugins/zsh-completions"]
 type = "archive"
-url = "https://github.com/zsh-users/zsh-completions/archive/refs/heads/master.tar.gz"
+url = "https://github.com/zsh-users/zsh-completions/archive/de02bb84ab0af51e328c6ae85ab5555397c31277.tar.gz"
+checksum.sha256 = "d07a49af20fbf31cd1c8970c426093336ab8690038e96a06f3647d3fbace4eb9"
 exact = true
 stripComponents = 1
-refreshPeriod = "168h"
 include = ["*/src/**"]
 
 [".local/share/zsh/plugins/zsh-syntax-highlighting"]
 type = "archive"
-url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/refs/heads/master.tar.gz"
+url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/0bfcb582e71d3abe604ce67bc0fe5a21f377507e.tar.gz"
+checksum.sha256 = "898766fe913588bb8e022ccddc263fc618a1308da914d397cd8b0c305b8ad3aa"
 exact = true
 stripComponents = 1
-refreshPeriod = "168h"
 include = ["*/.revision-hash", "*/.version", "*/highlighters/**", "*/zsh-syntax-highlighting.zsh"]
 exclude = ["*/highlighters/*/test-data", "*/highlighters/*/*.zunit"]

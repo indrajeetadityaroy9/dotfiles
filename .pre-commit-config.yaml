@@ -11,4 +11,11 @@ repos:
         name: shellcheck
         entry: mise exec -- shellcheck
         language: system
-        files: '^(bootstrap\.sh|\.chezmoiscripts/.*\.sh)$'
+        files: '^(bootstrap\.sh|\.chezmoiscripts/.*\.sh|dot_config/private_git/template/hooks/executable_pre-commit)$'
+
+      - id: chezmoi-templates
+        name: chezmoi templates
+        entry: mise run render
+        language: system
+        files: '\.tmpl$'
+        pass_filenames: false

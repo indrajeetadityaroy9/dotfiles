@@ -2,6 +2,26 @@
 
 lockfile_version = 2
 
+[[tools."aqua:Wilfred/difftastic"]]
+version = "0.70.0"
+backend = "aqua:Wilfred/difftastic"
+specifiers = ["0.70.0"]
+
+[tools."aqua:Wilfred/difftastic"."platforms.macos-arm64"]
+checksum = "sha256:1921267221fcb5779d30c4dcc0b3b4620abbe851ffd5596a4715576581518f51"
+url = "https://github.com/Wilfred/difftastic/releases/download/0.70.0/difft-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/Wilfred/difftastic/releases/assets/505661300"
+
+[[tools."aqua:jesseduffield/lazygit"]]
+version = "0.65.1"
+backend = "aqua:jesseduffield/lazygit"
+specifiers = ["0.65.1"]
+
+[tools."aqua:jesseduffield/lazygit"."platforms.macos-arm64"]
+checksum = "sha256:65a367c6ea9a88efebaaf7998a6835eedb987e04916cef677264ff9b31b1b13e"
+url = "https://github.com/jesseduffield/lazygit/releases/download/v0.65.1/lazygit_0.65.1_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/jesseduffield/lazygit/releases/assets/560658243"
+
 [[tools.atuin]]
 version = "18.22.0"
 backend = "aqua:atuinsh/atuin"
@@ -22,16 +42,6 @@ specifiers = ["0.26.1"]
 checksum = "sha256:e30beff26779c9bf60bb541e1d79046250cb74378f2757f8eb250afddb19e114"
 url = "https://github.com/sharkdp/bat/releases/download/v0.26.1/bat-v0.26.1-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/sharkdp/bat/releases/assets/323548442"
-
-[[tools.direnv]]
-version = "2.37.1"
-backend = "aqua:direnv/direnv"
-specifiers = ["2.37.1"]
-
-[tools.direnv."platforms.macos-arm64"]
-checksum = "sha256:4f569f3a36732bfd8b8fea7bfcc6ad87a59745c109022164d0ca4832451d5369"
-url = "https://github.com/direnv/direnv/releases/download/v2.37.1/direnv.darwin-arm64"
-url_api = "https://api.github.com/repos/direnv/direnv/releases/assets/274610544"
 
 [[tools.dua]]
 version = "2.45.0"
@@ -171,43 +181,43 @@ provenance = "github-attestations"
 version = "3.2.4"
 backend = "pypi:httpie"
 specifiers = ["3.2.4"]
-uv = { path = "locks/pypi-httpie/3.2.4", digest = "sha256:85725d0d045344d8d977de118f876c6525b3ab4a4c0bedc686f32b9c5038c2c8" }
+uv = { path = "locks/pypi-httpie/3.2.4", digest = "sha256:72687de63d31fd5d48efaf16b1e297b219c0ebb67fa119854c2af8de4e4e1d89" }
 
 [[tools."pypi:huggingface-hub"]]
 version = "1.31.0"
 backend = "pypi:huggingface-hub"
 specifiers = ["1.31.0"]
-uv = { path = "locks/pypi-huggingface-hub/1.31.0", digest = "sha256:660ccfdcbf1826a5d0e613d8cb330b48ccc90025c218838d1a5a6ef06b786604" }
+uv = { path = "locks/pypi-huggingface-hub/1.31.0", digest = "sha256:cbff0c2e6833688c150967b928ad17c969e5331f868afd280750dbb2b0d21648" }
 
 [[tools."pypi:ipython"]]
 version = "9.17.1"
 backend = "pypi:ipython"
 specifiers = ["9.17.1"]
-uv = { path = "locks/pypi-ipython/9.17.1", digest = "sha256:09836d81f268a9b9d0d874a3e9d5c438eadac609907a44e7284a3f183c2fbc6c" }
+uv = { path = "locks/pypi-ipython/9.17.1", digest = "sha256:7bf45c6cf22845b5fc39b1abba16ff25da75bbe10cef541fdc67c81ffa64189b" }
 
 [[tools."pypi:maturin"]]
 version = "1.15.0"
 backend = "pypi:maturin"
 specifiers = ["1.15.0"]
-uv = { path = "locks/pypi-maturin/1.15.0", digest = "sha256:16ba50c78123bb052bd5dec086e2272aaa4b00834c83ba1b54a5cf9e0e32b469" }
+uv = { path = "locks/pypi-maturin/1.15.0", digest = "sha256:ddff37d03601cb7132821a534349606ee974341d1af497a7e36d61ba1e3628c4" }
 
 [[tools."pypi:mypy"]]
 version = "2.3.1"
 backend = "pypi:mypy"
 specifiers = ["2.3.1"]
-uv = { path = "locks/pypi-mypy/2.3.1", digest = "sha256:d9c097c9c6d8999f7419001878197aed84bdb5e9f5bb4c4127f648aacd370326" }
+uv = { path = "locks/pypi-mypy/2.3.1", digest = "sha256:217c062452f91165e4348fff59f569b54a1d578600c9d01e8b47050455cf4835" }
 
 [[tools."pypi:pytest"]]
 version = "9.1.1"
 backend = "pypi:pytest"
 specifiers = ["9.1.1"]
-uv = { path = "locks/pypi-pytest/9.1.1", digest = "sha256:65c5a9d2a0152c01127b059fc120e0ba2e3e7109b733b992e463d38bb09df9b3" }
+uv = { path = "locks/pypi-pytest/9.1.1", digest = "sha256:b8b4af16867ae1489c36b26f1b5bcec7c8d0d9ec072b22f45bdef4fb02a7a62d" }
 
 [[tools."pypi:python-dotenv"]]
 version = "1.2.3"
 backend = "pypi:python-dotenv"
 specifiers = ["1.2.3"]
-uv = { path = "locks/pypi-python-dotenv/1.2.3~503ed615", digest = "sha256:10e18ca1a48508fe5de0aa39965ab574ec11814b5815c0032b5dd0dc08e42795" }
+uv = { path = "locks/pypi-python-dotenv/1.2.3~503ed615", digest = "sha256:cd1e77c5f7f1bb20cf1aeb0b5e089e4b5e518e2d8f515aa1abd6698ee4110e90" }
 
 [tools."pypi:python-dotenv".options]
 extras = "cli"
@@ -216,7 +226,7 @@ extras = "cli"
 version = "0.16.8"
 backend = "pypi:ruff"
 specifiers = ["0.16.8"]
-uv = { path = "locks/pypi-ruff/0.16.8", digest = "sha256:7f9434309dabc4186ebbed3d75212fa17635c01917a2b7032aedeb0ad198b48d" }
+uv = { path = "locks/pypi-ruff/0.16.8", digest = "sha256:0d39fc1160d29a49d842c4b6de82a929350deb95cdee5f718af1e6067c9039e3" }
 
 [[tools.python]]
 version = "3.13.15"
@@ -262,6 +272,16 @@ specifiers = ["1.26.0"]
 checksum = "sha256:c40b27b11f580411e068f2fa6c1be7830a387c0bc47a94d1d37f32b054c5361d"
 url = "https://github.com/starship/starship/releases/download/v1.26.0/starship-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/starship/starship/releases/assets/460374577"
+
+[[tools.tealdeer]]
+version = "1.9.0"
+backend = "aqua:tealdeer-rs/tealdeer"
+specifiers = ["1.9.0"]
+
+[tools.tealdeer."platforms.macos-arm64"]
+checksum = "sha256:e6c6d9bf6d0267a38d5709c2b8334467fedd456927429ab426ff823201c13a40"
+url = "https://github.com/tealdeer-rs/tealdeer/releases/download/v1.9.0/tealdeer-macos-aarch64"
+url_api = "https://api.github.com/repos/tealdeer-rs/tealdeer/releases/assets/527792693"
 
 [[tools.uv]]
 version = "0.12.15"

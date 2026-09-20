@@ -14,6 +14,8 @@ mise install --locked
 
 mise exec -- chezmoi --source "$ROOT" init --apply
 
+mise install --locked
+
 mise exec -- prek install
 
 echo "bootstrap complete"

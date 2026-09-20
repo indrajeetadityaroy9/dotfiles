@@ -10,5 +10,3 @@ path=("$HOME/.local/bin" $path)
 
 export VISUAL=hx
 export EDITOR="$VISUAL"
-
-export ANDROID_HOME="$HOME/Library/Android/sdk"

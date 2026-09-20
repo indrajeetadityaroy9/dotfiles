@@ -2,6 +2,8 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-typeset -U path fpath
-
 path=("$HOME/.local/bin" $path)
+
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+
+(( $+commands[mise] )) && eval "$(mise activate zsh --shims)"
