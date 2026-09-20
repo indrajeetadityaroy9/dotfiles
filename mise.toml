@@ -59,9 +59,9 @@ description = "apply dotfiles from this working tree"
 run = "chezmoi --source . apply"
 
 [tasks.update]
-description = "bump project and global locks, then capture global lock output"
+description = "bump project locks and fuzzy global runtime locks"
 run = [
     "mise lock --bump",
-    "mise lock --global --bump",
-    "chezmoi --source . re-add ~/.config/mise/mise.lock ~/.config/mise/locks",
+    "mise lock --global --bump python node rust java",
+    "chezmoi --source . re-add ~/.config/mise/mise.lock",
 ]
