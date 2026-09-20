@@ -18,6 +18,9 @@ if [[ -n ${_zcompdump}(#qN.mh+24) ]]; then
 else
   compinit -C -d "$_zcompdump"
 fi
+if [[ ! -s ${_zcompdump}.zwc || ${_zcompdump} -nt ${_zcompdump}.zwc ]]; then
+  zcompile -R -- "$_zcompdump"
+fi
 unset _zcompdump
 
 zstyle ':completion:*' menu select

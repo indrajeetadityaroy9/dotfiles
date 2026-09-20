@@ -37,12 +37,16 @@
 	autoSquash = true
 	autoStash = true
 	updateRefs = true
+	missingCommitsCheck = error
 [fetch]
 	prune = true
 	pruneTags = true
 [rerere]
 	enabled = true
 	autoUpdate = true
+
+[maintenance]
+	strategy = geometric
 
 [merge]
 	conflictStyle = zdiff3
@@ -51,6 +55,8 @@
 	colorMoved = default
 [branch]
 	sort = -committerdate
+[column]
+	ui = auto
 [help]
 	autocorrect = prompt
 
