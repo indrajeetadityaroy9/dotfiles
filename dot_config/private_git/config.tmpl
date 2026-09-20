@@ -55,7 +55,7 @@
 	autocorrect = prompt
 
 [credential]
-	helper = {{ if eq .chezmoi.os "darwin" }}osxkeychain{{ else }}!gh auth git-credential{{ end }}
+	helper = osxkeychain
 
 [url "git@github.com:"]
 	pushInsteadOf = https://github.com/

@@ -1,7 +1,7 @@
 [settings]
 lockfile = true
 lockfile_mode = "generate"
-lockfile_platforms = ["macos-arm64", "linux-arm64", "linux-x64"]
+lockfile_platforms = ["macos-arm64"]
 minimum_release_age = "3d"
 idiomatic_version_file_enable_tools = []
 
@@ -17,10 +17,8 @@ java   = "temurin-21"
 
 atuin      = "18.22.0"
 bat        = "0.26.1"
-btop       = { version = "1.4.7", os = ["linux"] }
 direnv     = "2.37.1"
 dua        = "2.45.0"
-"github:eza-community/eza" = { version = "0.23.5", exe = "eza", os = ["linux"] }
 fastfetch  = "2.68.1"
 fd         = "10.5.0"
 fzf        = "0.74.4"

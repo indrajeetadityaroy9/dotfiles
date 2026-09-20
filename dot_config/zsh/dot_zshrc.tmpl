@@ -48,17 +48,5 @@ alias cat='bat --paging=never'
 alias dui='dua interactive'
 
 secret() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
-{{ if eq .chezmoi.os "linux" }}
-mlguard() {
-  sudo systemd-run --scope \
-    -p MemoryMax="${MLGUARD_MAX_MEM:-110G}" -p MemorySwapMax=0 \
-    --uid="$(id -u)" --gid="$(id -g)" "$@"
-}
-
-if [[ -z $GNOME_KEYRING_CONTROL ]] && (( $+commands[gnome-keyring-daemon] )); then
-  eval "$(gnome-keyring-daemon --start 2>/dev/null)" && \
-    export GNOME_KEYRING_CONTROL SSH_AUTH_SOCK
-fi
-{{- end }}
 
 [[ -r $ZDOTDIR/zshrc.local ]] && source "$ZDOTDIR/zshrc.local"

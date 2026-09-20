@@ -5,10 +5,6 @@ Brewfile
 mise.toml
 mise.lock
 
-{{ if ne .chezmoi.os "darwin" -}}
-.config/ghostty/config
-{{ end -}}
-
 .ssh/id_*
 .ssh/known_hosts*
 .ssh/authorized_keys

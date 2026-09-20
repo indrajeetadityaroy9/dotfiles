@@ -1,7 +1,7 @@
 [settings]
 lockfile = true
 lockfile_mode = "generate"
-lockfile_platforms = ["macos-arm64", "linux-arm64", "linux-x64"]
+lockfile_platforms = ["macos-arm64"]
 
 [tools]
 chezmoi    = "2.72.2"
@@ -33,6 +33,16 @@ for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
     echo "template ok: $t"
 done
 rm -f "$MISE_PROJECT_ROOT/.rendered.tmp"
+"""
+
+[tasks.check-static]
+description = "syntax-check the non-templated zsh and ssh configs"
+run = """
+set -eu
+zsh -n dot_config/zsh/dot_zprofile
+echo "zprofile ok"
+ssh -G -F private_dot_ssh/private_config github.com >/dev/null
+echo "ssh config ok"
 """
 
 [tasks.diff]

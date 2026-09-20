@@ -5,7 +5,7 @@ permissions:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v5
         with:
@@ -28,6 +28,7 @@ jobs:
         run: mise run lint
 
       - name: render templates + zsh -n
-        run: |
-          sudo apt-get install -y -qq zsh
-          mise run render
+        run: mise run render
+
+      - name: check non-templated configs
+        run: mise run check-static
