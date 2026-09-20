@@ -56,6 +56,16 @@ non-shadowing convenience aliases remain (`ll`, `lt`, and `dui`), so native
   files, PATH entries, and Python environments should use mise `[env]` instead.
 - Portable, versioned CLIs prefer mise and its lockfile. Homebrew remains the
   fallback when a mise backend has no reliable locked macOS artifact.
+- Project-sensitive Python tools (`pytest`, mypy, and Pyright) belong in each
+  project's locked development environment, where plugins, stubs, and imports
+  match the application. Shell dotenv loading uses mise `[env]`; `python-dotenv`
+  is installed only by projects that import or require its CLI.
+- `ty` is the lightweight global type-checking/LSP fallback expected by Helix,
+  but remains beta and is not a substitute for a project's authoritative pinned
+  checker. `xh` replaces the less active Python-based HTTPie CLI with a native,
+  mostly HTTPie-compatible client.
+- Corepack remains explicitly locked for Node 25+ compatibility even though the
+  current Node 24 LTS distribution also bundles it.
 - Local overrides are limited to `.config/zsh/zshrc.local`,
   `.config/git/config.local`, and `.ssh/config.d/*.conf`; all are ignored by
   chezmoi and Git.
@@ -69,6 +79,11 @@ non-shadowing convenience aliases remain (`ll`, `lt`, and `dui`), so native
 - [mise shell activation and shims](https://mise.jdx.dev/dev-tools/shims.html)
 - [mise lockfiles](https://mise.jdx.dev/dev-tools/mise-lock.html)
 - [mise tasks](https://mise.jdx.dev/tasks/)
+- [uv project tools versus isolated tools](https://docs.astral.sh/uv/guides/tools/)
+- [pytest good integration practices](https://docs.pytest.org/en/stable/explanation/goodpractices.html)
+- [ty migration limitations](https://docs.astral.sh/ty/coming-from-mypy-or-pyright/)
+- [xh HTTPie-compatible native client](https://github.com/ducaale/xh)
+- [Node Corepack](https://nodejs.org/api/corepack.html)
 - [mise bootstrap](https://mise.jdx.dev/bootstrap.html)
 - [chezmoi scripts](https://www.chezmoi.io/user-guide/use-scripts-to-perform-actions/)
 - [chezmoi externals](https://www.chezmoi.io/reference/special-files/chezmoiexternal-format/)
