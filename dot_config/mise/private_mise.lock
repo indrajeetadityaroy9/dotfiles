@@ -12,6 +12,17 @@ checksum = "sha256:1921267221fcb5779d30c4dcc0b3b4620abbe851ffd5596a4715576581518
 url = "https://github.com/Wilfred/difftastic/releases/download/0.70.0/difft-aarch64-apple-darwin.tar.gz"
 url_api = "https://api.github.com/repos/Wilfred/difftastic/releases/assets/505661300"
 
+[[tools."aqua:astral-sh/ruff"]]
+version = "0.16.8"
+backend = "aqua:astral-sh/ruff"
+specifiers = ["0.16.8"]
+
+[tools."aqua:astral-sh/ruff"."platforms.macos-arm64"]
+checksum = "sha256:0ffa53899f2970d24f14fbed8d8265c87180b159b7100794d97a1527dc60fa79"
+url = "https://github.com/astral-sh/ruff/releases/download/0.16.8/ruff-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/astral-sh/ruff/releases/assets/568294350"
+provenance = "github-attestations"
+
 [[tools."aqua:jesseduffield/lazygit"]]
 version = "0.65.1"
 backend = "aqua:jesseduffield/lazygit"
@@ -105,6 +116,17 @@ checksum = "sha256:caff76a7d070d8160c89bc39b6e85d98f24135b6fed038a3b4de2590d2510
 url = "https://github.com/git-lfs/git-lfs/releases/download/v3.8.0/git-lfs-darwin-arm64-v3.8.0.zip"
 url_api = "https://api.github.com/repos/git-lfs/git-lfs/releases/assets/532993595"
 
+[[tools."github:PyO3/maturin"]]
+version = "1.15.0"
+backend = "github:PyO3/maturin"
+specifiers = ["1.15.0"]
+
+[tools."github:PyO3/maturin"."platforms.macos-arm64"]
+checksum = "sha256:d7a9ce82389e75aeaef8fdda43d35dbc956fac6a4b143a4c7b447b6ffadc7eaf"
+url = "https://github.com/PyO3/maturin/releases/download/v1.15.0/maturin-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/PyO3/maturin/releases/assets/527562235"
+provenance = "github-attestations"
+
 [[tools.gitleaks]]
 version = "8.30.1"
 backend = "aqua:gitleaks/gitleaks"
@@ -195,12 +217,6 @@ backend = "pypi:ipython"
 specifiers = ["9.17.1"]
 uv = { path = "locks/pypi-ipython/9.17.1", digest = "sha256:7bf45c6cf22845b5fc39b1abba16ff25da75bbe10cef541fdc67c81ffa64189b" }
 
-[[tools."pypi:maturin"]]
-version = "1.15.0"
-backend = "pypi:maturin"
-specifiers = ["1.15.0"]
-uv = { path = "locks/pypi-maturin/1.15.0", digest = "sha256:ddff37d03601cb7132821a534349606ee974341d1af497a7e36d61ba1e3628c4" }
-
 [[tools."pypi:mypy"]]
 version = "2.3.1"
 backend = "pypi:mypy"
@@ -221,12 +237,6 @@ uv = { path = "locks/pypi-python-dotenv/1.2.3~503ed615", digest = "sha256:cd1e77
 
 [tools."pypi:python-dotenv".options]
 extras = "cli"
-
-[[tools."pypi:ruff"]]
-version = "0.16.8"
-backend = "pypi:ruff"
-specifiers = ["0.16.8"]
-uv = { path = "locks/pypi-ruff/0.16.8", digest = "sha256:0d39fc1160d29a49d842c4b6de82a929350deb95cdee5f718af1e6067c9039e3" }
 
 [[tools.python]]
 version = "3.13.15"

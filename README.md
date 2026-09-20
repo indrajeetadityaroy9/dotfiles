@@ -17,6 +17,8 @@ macOS development environment managed by chezmoi, mise, and Homebrew.
 The generated `dot_config/mise/private_locks/` files are native dependency
 sidecars required by mise lockfile v2. They are intentionally committed for
 checksum and dependency-graph reproducibility rather than hand-maintained.
+Tools with trustworthy upstream binaries use native `aqua:` or `github:`
+backends instead, avoiding unnecessary package-manager sidecars.
 
 ## Bootstrap
 
