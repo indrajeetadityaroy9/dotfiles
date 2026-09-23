@@ -1,7 +1,6 @@
 Include ~/.ssh/config.d/*.conf
 
 Host github.com
-  HostName github.com
   User git
 
 Host *

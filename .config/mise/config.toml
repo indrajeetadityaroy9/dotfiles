@@ -1,9 +1,7 @@
 [settings]
 lockfile = true
-lockfile_mode = "generate"
 lockfile_platforms = ["macos-arm64"]
 minimum_release_age = "3d"
-idiomatic_version_file_enable_tools = []
 
 [settings.python]
 uv_venv_auto = "source"
@@ -17,6 +15,7 @@ java   = "temurin-21"
 
 atuin      = "18.22.0"
 bat        = "0.26.1"
+chezmoi    = "2.72.2"
 "aqua:Wilfred/difftastic" = "0.70.0"
 dua        = "2.45.0"
 fastfetch  = "2.68.1"

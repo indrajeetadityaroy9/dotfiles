@@ -3,9 +3,6 @@
 	email = {{ .git_email | quote }}
 	signingkey = ~/.ssh/id_ed25519.pub
 
-[include]
-	path = config.local
-
 [init]
 	defaultBranch = main
 	templateDir = ~/.config/git/template
@@ -13,6 +10,11 @@
 	excludesFile = ~/.config/git/ignore
 	fsmonitor = true
 	untrackedCache = true
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
 
 [commit]
 	gpgsign = true
@@ -53,6 +55,13 @@
 [diff]
 	algorithm = histogram
 	colorMoved = default
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+	difftool = true
 [branch]
 	sort = -committerdate
 [column]
@@ -71,3 +80,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[include]
+	path = config.local

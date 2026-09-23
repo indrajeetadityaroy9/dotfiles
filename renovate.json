@@ -7,16 +7,15 @@
     "github-actions",
     "mise"
   ],
-  "mise": {
-    "managerFilePatterns": [
-      "mise.toml",
-      "dot_config/mise/config.toml"
-    ]
-  },
+  "minimumReleaseAge": "3 days",
+  "gitIgnoredAuthors": [
+    "41898282+github-actions[bot]@users.noreply.github.com"
+  ],
   "packageRules": [
     {
-      "description": "node/rust/java track channels; mise.lock pins the real build.",
-      "matchPackageNames": [
+      "description": "Runtime channels; `mise run update` advances them in mise.lock.",
+      "matchDepNames": [
+        "python",
         "node",
         "rust",
         "java"

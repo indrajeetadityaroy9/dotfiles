@@ -1,13 +1,21 @@
 name: ci
-on: [push, pull_request]
+on:
+  push:
+  workflow_dispatch:
+
 permissions:
   contents: read
 
 jobs:
   check:
     runs-on: macos-latest
+    permissions:
+      contents: write # push the synced mise.lock onto Renovate branches
+      actions: write # re-dispatch CI for that push (GITHUB_TOKEN pushes don't trigger runs)
+    env:
+      MISE_AUTO_INSTALL: "false" # only the tools installed below
     steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
       - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
@@ -15,8 +23,31 @@ jobs:
           install: false
           minimum_release_age: 3d
 
-      - run: mise trust && mise install
+      # Renovate bumps pins in config.toml; mise.lock and locks/ must follow.
+      # Elsewhere, fail only on version drift, not on metadata a newer mise rewrites.
+      - name: sync mise.lock
         env:
-          MISE_LOCKED: "1"
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          case "$GITHUB_REF_NAME" in
+            renovate/*)
+              mise install uv # locking pypi: tools needs uv
+              mise run lock
+              [ -z "$(git status --porcelain -- .config/mise)" ] && exit 0
+              git config user.name "github-actions[bot]"
+              git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+              git add .config/mise
+              git commit -m "chore(deps): sync mise.lock"
+              git push
+              gh workflow run ci.yml --ref "$GITHUB_REF_NAME" ;;
+            *)
+              # before any `mise install`: with lockfile = true it rewrites mise.lock
+              drift=$(mise run lock --dry-run --json)
+              [ "$drift" = "[]" ] && exit 0
+              echo "$drift"
+              echo "::error::mise.lock is stale; run 'mise run lock' and commit"
+              exit 1 ;;
+          esac
 
+      - run: mise install --locked chezmoi gitleaks shellcheck
       - run: mise run check

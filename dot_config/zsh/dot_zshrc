@@ -28,11 +28,15 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/zcompcache"
 
+# Activate first so the inits below run real binaries, not mise shims.
+(( $+commands[mise] )) && eval "$(mise activate zsh)"
+
 (( $+commands[zoxide]   )) && eval "$(zoxide init zsh)"
-(( $+commands[atuin]    )) && eval "$(atuin init zsh --disable-up-arrow)"
 (( $+commands[starship] )) && eval "$(starship init zsh)"
 
-(( $+commands[fzf] )) && [[ -o zle && -t 0 && -t 1 ]] && source <(fzf --zsh)
+# fzf before atuin: atuin takes Ctrl-R, fzf keeps Ctrl-T / Alt-C.
+(( $+commands[fzf]   )) && [[ -o zle && -t 0 && -t 1 ]] && source <(fzf --zsh)
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
 
 [[ -r $ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh ]] &&
   source "$ZPLUGDIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -44,8 +48,6 @@ alias dui='dua interactive'
 secret() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
 
 [[ -r $ZDOTDIR/zshrc.local ]] && source "$ZDOTDIR/zshrc.local"
-
-(( $+commands[mise] )) && eval "$(mise activate zsh)"
 
 [[ -r $ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&
   source "$ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

@@ -1,17 +1,13 @@
 README.md
-bootstrap.sh
-renovate.json
 Brewfile
+bootstrap.sh
 mise.toml
-mise.lock
+renovate.json
 
 .ssh/id_*
 .ssh/known_hosts*
 .ssh/authorized_keys
-.ssh/config.d
-.ssh/sockets
-.config/git/config.local
-.config/git/allowed_signers
-.config/git/allowed_signers.local
-.config/zsh/zshrc.local
+.ssh/config.d/*
+.ssh/sockets/*
 .config/gh
+**/?*.local

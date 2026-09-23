@@ -1,5 +1,2 @@
 *.local
-*.local.toml
-.chezmoi.toml
-mise.local.lock
-.rendered.tmp
+mise.local.*

@@ -1,67 +1,50 @@
-[tools]
-chezmoi    = "2.72.2"
-gitleaks   = "8.30.1"
-prek       = "0.5.3"
-shellcheck = "0.11.0"
-
-[settings]
-lockfile = true
-lockfile_mode = "generate"
-lockfile_platforms = ["macos-arm64"]
+# Repo tasks. Tools come from .config/mise/config.toml, which chezmoi symlinks
+# into ~/.config/mise, so it is both this repo's toolset and the global one.
 
 [tasks.lint]
-description = "shellcheck all shell sources"
-run = "shellcheck bootstrap.sh .chezmoiscripts/*.sh dot_config/private_git/template/hooks/executable_pre-commit"
-
-[tasks.secrets]
-description = "scan full history for secrets"
-run = "gitleaks git --config .gitleaks.toml --redact --no-banner -v ."
+description = "shellcheck scripts; syntax-check zsh and ssh configs"
+run = """
+shellcheck bootstrap.sh dot_config/private_git/template/hooks/executable_pre-commit
+for f in dot_zshenv dot_config/zsh/dot_zprofile dot_config/zsh/dot_zshrc; do zsh -n "$f"; done
+ssh -T -G -F private_dot_ssh/private_config github.com >/dev/null
+"""
 
 [tasks.render]
-description = "render every template and syntax-check the result"
+description = "render every template; syntax-check rendered scripts and git config"
 run = """
-set -eu
-for t in $(find . -name '*.tmpl' -not -path './.git/*'); do
-    chezmoi --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
-        execute-template --init \
-        --promptString git_name=ci --promptString git_email=ci@example.com \
-        <"$t" >"$MISE_PROJECT_ROOT/.rendered.tmp" || { echo "FAILED: $t"; exit 1; }
+out=$(mktemp)
+trap 'rm -f "$out"' EXIT
+for t in $(git ls-files '*.tmpl'); do
+    chezmoi --source . --override-data '{"git_name":"ci","git_email":"ci@example.com"}' \
+        execute-template --init --promptString git_name=ci --promptString git_email=ci@example.com \
+        <"$t" >"$out" || { echo "FAILED: $t"; exit 1; }
     case "$t" in
-        *zsh*) zsh -n "$MISE_PROJECT_ROOT/.rendered.tmp" ;;
-        *.sh.tmpl) sh -n "$MISE_PROJECT_ROOT/.rendered.tmp" && shellcheck "$MISE_PROJECT_ROOT/.rendered.tmp" ;;
+        *.sh.tmpl) sh -n "$out" && shellcheck "$out" ;;
+        */private_git/config.tmpl) git config --file "$out" --list >/dev/null ;;
     esac
-    echo "template ok: $t"
+    echo "ok: $t"
 done
-rm -f "$MISE_PROJECT_ROOT/.rendered.tmp"
 """
 
-[tasks.check-static]
-description = "syntax-check zsh and ssh configs"
-run = """
-set -eu
-zsh -n dot_zshenv
-zsh -n dot_config/zsh/dot_zprofile
-zsh -n dot_config/zsh/dot_zshrc
-ssh -G -F private_dot_ssh/private_config github.com >/dev/null
-echo "static configs ok"
-"""
+[tasks.secrets]
+description = "scan full git history for secrets"
+run = "gitleaks git --redact --no-banner ."
 
 [tasks.check]
-description = "run every check"
-depends = ["lint", "secrets", "render", "check-static"]
+description = "run every check (CI)"
+depends = ["lint", "render", "secrets"]
 
-[tasks.diff]
-description = "preview what chezmoi would change"
-run = "chezmoi --source . diff"
+[tasks.pre-commit]
+description = "git pre-commit hook: static checks + secrets in staged changes"
+depends = ["lint", "render"]
+run = "gitleaks git --staged --redact --no-banner -v ."
 
-[tasks.apply]
-description = "apply dotfiles from this working tree"
-run = "chezmoi --source . apply"
+[tasks.lock]
+description = "sync .config/mise/mise.lock and locks/ with config.toml"
+env = { MISE_GLOBAL_CONFIG_FILE = "{{config_root}}/.config/mise/config.toml" }
+run = "mise lock --global"
 
 [tasks.update]
-description = "bump project locks and fuzzy global runtime locks"
-run = [
-    "mise lock --bump",
-    "mise lock --global --bump python node rust java",
-    "chezmoi --source . re-add ~/.config/mise/mise.lock",
-]
+description = "advance the python/node/rust/java channels in mise.lock"
+env = { MISE_GLOBAL_CONFIG_FILE = "{{config_root}}/.config/mise/config.toml" }
+run = "mise lock --global --bump python node rust java"

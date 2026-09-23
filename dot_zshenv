@@ -6,7 +6,6 @@ export XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.local/state}"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 typeset -U path fpath
-path=("$HOME/.local/bin" $path)
 
 export VISUAL=hx
 export EDITOR="$VISUAL"

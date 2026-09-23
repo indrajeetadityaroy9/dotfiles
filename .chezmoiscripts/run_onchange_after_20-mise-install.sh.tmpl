@@ -1,0 +1,6 @@
+#!/bin/sh
+# mise.lock sha256: {{ include ".config/mise/mise.lock" | sha256sum }}
+set -eu
+
+export PATH="/opt/homebrew/bin:$PATH"
+exec mise install --locked

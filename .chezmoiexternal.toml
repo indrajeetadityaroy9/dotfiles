@@ -17,5 +17,4 @@ url = "https://github.com/zsh-users/zsh-syntax-highlighting/archive/0bfcb582e71d
 checksum.sha256 = "898766fe913588bb8e022ccddc263fc618a1308da914d397cd8b0c305b8ad3aa"
 exact = true
 stripComponents = 1
-include = ["*/.revision-hash", "*/.version", "*/highlighters/**", "*/zsh-syntax-highlighting.zsh"]
-exclude = ["*/highlighters/*/test-data", "*/highlighters/*/*.zunit"]
+include = ["*/.revision-hash", "*/.version", "*/zsh-syntax-highlighting.zsh", "*/highlighters", "*/highlighters/*", "*/highlighters/*/*-highlighter.zsh"]
