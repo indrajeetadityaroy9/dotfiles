@@ -1,3 +1,4 @@
+{{- /* This machine's key plus ~/.config/git/allowed_signers.local (machine-local signers, not in the repo). */ -}}
 {{- $key := joinPath .chezmoi.homeDir ".ssh/id_ed25519.pub" -}}
 {{- $local := joinPath .chezmoi.homeDir ".config/git/allowed_signers.local" -}}
 {{- if stat $key -}}

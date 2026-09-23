@@ -47,6 +47,7 @@ alias dui='dua interactive'
 
 secret() { chezmoi secret keyring get --service="$1" --user="${2:-$USER}"; }
 
+# Machine-local additions (not in the repo).
 [[ -r $ZDOTDIR/zshrc.local ]] && source "$ZDOTDIR/zshrc.local"
 
 [[ -r $ZPLUGDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] &&

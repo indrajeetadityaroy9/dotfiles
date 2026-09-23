@@ -1,6 +1,11 @@
 #!/bin/sh
 # Fresh Apple Silicon Mac (safe to re-run):
 #   sh -c "$(curl -fsSL https://raw.githubusercontent.com/indrajeetadityaroy9/dotfiles/main/bootstrap.sh)"
+# Installs Homebrew and mise, clones this repo to ~/.local/share/chezmoi, creates
+# ~/.ssh/id_ed25519 if missing, installs the locked toolset, applies the dotfiles
+# (which runs brew bundle), and installs this repo's pre-commit hook.
+# Afterwards `chezmoi update` pulls and applies, re-running brew bundle and
+# `mise install` when Brewfile or .config/mise/mise.lock change.
 set -eu
 
 REPO=https://github.com/indrajeetadityaroy9/dotfiles.git

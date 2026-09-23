@@ -1,3 +1,4 @@
+# Private hosts go in ~/.ssh/config.d/*.conf (not in the repo; .gitleaks.toml blocks HostName here).
 Include ~/.ssh/config.d/*.conf
 
 Host github.com

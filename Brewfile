@@ -1,3 +1,5 @@
+# Native libraries, services, fonts, apps, and CLIs not in .config/mise/config.toml.
+# `chezmoi apply` runs `brew bundle` whenever this file changes.
 brew "automake"
 brew "btop"
 brew "cmake"

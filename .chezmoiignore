@@ -4,6 +4,7 @@ bootstrap.sh
 mise.toml
 renovate.json
 
+# Secrets and machine-local files: never managed.
 .ssh/id_*
 .ssh/known_hosts*
 .ssh/authorized_keys

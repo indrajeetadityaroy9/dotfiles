@@ -1,3 +1,6 @@
+# Global toolset (CLIs and runtimes, locked in mise.lock). chezmoi symlinks this
+# file and mise.lock into ~/.config/mise, so `mise use -g tool@x.y` edits them here.
+# After editing by hand: `mise run lock`. Advance python/node/rust/java: `mise run update`.
 [settings]
 lockfile = true
 lockfile_platforms = ["macos-arm64"]
