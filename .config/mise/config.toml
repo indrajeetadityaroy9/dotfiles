@@ -61,7 +61,10 @@ st=$(chezmoi status)
 [ -z "$st" ] || { echo "chezmoi: managed files changed outside the repo (chezmoi diff):"; echo "$st"; rc=1; }
 brew bundle check --no-upgrade --file "$brewfile" >/dev/null ||
     { brew bundle check --no-upgrade --verbose --file "$brewfile"; rc=1; }
-brew bundle cleanup --formula --cask --file "$brewfile" || rc=1
+# Only undeclared packages count; its exit status also trips on cache files `brew cleanup` would remove.
+extra=$(brew bundle cleanup --formula --cask --file "$brewfile" |
+    awk '/^Would uninstall/ { p = 1; print; next } /^(Would|Run|==>)/ { p = 0 } p')
+[ -z "$extra" ] || { echo "brew: installed but not in Brewfile:"; echo "$extra"; rc=1; }
 missing=$(mise ls --global --missing)
 [ -z "$missing" ] || { echo "mise: not installed:"; echo "$missing"; rc=1; }
 exit $rc
