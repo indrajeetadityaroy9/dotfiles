@@ -7,3 +7,6 @@ path=("$HOME/.local/bin" $path)
 [[ -d $HOME/Library/Android/sdk ]] && export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 (( $+commands[mise] )) && eval "$(mise activate zsh --shims)"
+
+# Machine-local additions (not in the repo), e.g. app-installed PATH hooks.
+[[ -r $ZDOTDIR/zprofile.local ]] && source "$ZDOTDIR/zprofile.local"

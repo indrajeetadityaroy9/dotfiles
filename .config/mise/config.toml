@@ -1,6 +1,7 @@
 # Global toolset (CLIs and runtimes, locked in mise.lock). chezmoi symlinks this
 # file and mise.lock into ~/.config/mise, so `mise use -g tool@x.y` edits them here.
 # After editing by hand: `mise run lock`. Advance python/node/rust/java: `mise run update`.
+# The tasks at the bottom are global: `mise run upgrade|doctor|completions` from any directory.
 [settings]
 lockfile = true
 lockfile_platforms = ["macos-arm64"]
@@ -30,7 +31,6 @@ gitleaks   = "8.30.1"
 helix      = "25.07.1"
 jq         = "1.8.2"
 "aqua:jesseduffield/lazygit" = "0.65.1"
-prek       = "0.5.3"
 ripgrep    = "15.2.0"
 shellcheck = "0.11.0"
 starship   = "1.26.0"
@@ -46,3 +46,58 @@ zoxide     = "0.10.0"
 "pypi:huggingface-hub" = "1.31.0"
 "pypi:ipython"         = "9.17.1"
 "npm:corepack"         = "0.36.0"
+
+[tasks.upgrade]
+description = "pull and apply dotfiles, then upgrade Homebrew packages and mise itself"
+run = ["chezmoi update", "brew update", "brew upgrade", "mise self-update --yes"]
+
+[tasks.doctor]
+description = "report drift between this Mac and the dotfiles repo"
+run = '''
+brewfile="$(chezmoi source-path)/Brewfile"
+rc=0
+st=$(chezmoi status)
+[ -z "$st" ] || { echo "chezmoi: managed files changed outside the repo (chezmoi diff):"; echo "$st"; rc=1; }
+brew bundle check --no-upgrade --file "$brewfile" >/dev/null ||
+    { brew bundle check --no-upgrade --verbose --file "$brewfile"; rc=1; }
+brew bundle cleanup --formula --cask --file "$brewfile" || rc=1
+missing=$(mise ls --global --missing)
+[ -z "$missing" ] || { echo "mise: not installed:"; echo "$missing"; rc=1; }
+exit $rc
+'''
+
+[tasks.completions]
+description = "regenerate zsh completions for the tools above (chezmoi runs this when mise.lock changes)"
+run = '''
+dir="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/completions"
+tmp=$(mktemp -d)
+gen() {
+    f=$1; shift
+    "$@" >"$tmp/$f" 2>/dev/null && [ -s "$tmp/$f" ] ||
+        { rm -f "$tmp/$f"; echo "completions: skipped $f" >&2; }
+}
+gen _atuin    atuin gen-completions --shell zsh
+gen _bat      bat --completion zsh
+gen _cargo    rustup completions zsh cargo
+gen _chezmoi  chezmoi completion zsh
+gen _dua      dua completions zsh
+gen _fd       fd --gen-completions zsh
+gen _gh       gh completion -s zsh
+gen _git-lfs  git-lfs completion zsh
+gen _gitleaks gitleaks completion zsh
+gen _hx       sh -c 'cat "$(mise where helix)"/*/contrib/completion/hx.zsh'
+gen _maturin  maturin completions zsh
+gen _mise     mise completion zsh
+gen _rg       rg --generate complete-zsh
+gen _ruff     ruff generate-shell-completion zsh
+gen _rustup   rustup completions zsh rustup
+gen _starship starship completions zsh
+gen _ty       ty generate-shell-completion zsh
+gen _uv       uv generate-shell-completion zsh
+gen _uvx      uvx --generate-shell-completion zsh
+gen _xh       xh --generate complete-zsh
+gen _yq       yq shell-completion zsh
+gen _zoxide   sh -c 'cat "$(mise where zoxide)/completions/_zoxide"'
+rm -rf "$dir" && mkdir -p "${dir%/*}" && mv "$tmp" "$dir"
+rm -f "${XDG_CACHE_HOME:-$HOME/.cache}"/zsh/zcompdump-*
+'''

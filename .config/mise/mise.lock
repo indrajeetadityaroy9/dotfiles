@@ -214,17 +214,6 @@ aube = { path = "locks/npm-corepack/0.36.0", digest = "sha256:b7719f3fccd6604684
 backend = "npm:corepack"
 specifiers = ["0.36.0"]
 
-[[tools.prek]]
-version = "0.5.3"
-backend = "aqua:j178/prek"
-specifiers = ["0.5.3"]
-
-[tools.prek."platforms.macos-arm64"]
-checksum = "sha256:6006cc4e69cfc86d55f4e407ca60ba960a521befa54fece94038639b1f4de381"
-url = "https://github.com/j178/prek/releases/download/v0.5.3/prek-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/j178/prek/releases/assets/560889174"
-provenance = "github-attestations"
-
 [[tools."pypi:huggingface-hub"]]
 version = "1.31.0"
 backend = "pypi:huggingface-hub"

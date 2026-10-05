@@ -1,6 +1,8 @@
 #!/bin/sh
 # mise.lock sha256: {{ include ".config/mise/mise.lock" | sha256sum }}
+# config.toml sha256: {{ include ".config/mise/config.toml" | sha256sum }}
 set -eu
 
-export PATH="/opt/homebrew/bin:$PATH"
-exec mise install --locked
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:$PATH"
+mise install --locked
+exec mise run completions

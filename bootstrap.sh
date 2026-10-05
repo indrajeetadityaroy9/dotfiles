@@ -18,7 +18,11 @@ KEY="$HOME/.ssh/id_ed25519"
 [ -x /opt/homebrew/bin/brew ] ||
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/opt/homebrew/bin/brew shellenv)"
-command -v mise >/dev/null || brew install mise
+# mise's recommended macOS install: the official signed binary in ~/.local/bin,
+# updated by `mise self-update` (`mise run upgrade`), not the Homebrew formula.
+export PATH="$HOME/.local/bin:$PATH"
+[ -x "$HOME/.local/bin/mise" ] ||
+    curl -fsSL https://mise.run | MISE_SELF_UPDATE_MINIMUM_RELEASE_AGE=3d sh
 
 [ -d "$SRC/.git" ] || git clone "$REPO" "$SRC"
 
