@@ -2,10 +2,13 @@
 # into ~/.config/mise, so it is both this repo's toolset and the global one.
 
 [tasks.lint]
-description = "shellcheck scripts; syntax-check zsh and ssh configs"
+description = "shellcheck sh/bash scripts (found by shebang; templates are checked by render); syntax-check zsh and ssh configs"
 run = """
-shellcheck bootstrap.sh dot_config/private_git/template/hooks/executable_pre-commit .chezmoiscripts/run_onchange_after_30-macos.sh
-for f in dot_zshenv dot_config/zsh/dot_zprofile dot_config/zsh/dot_zshrc; do zsh -n "$f"; done
+scripts=$(git ls-files ':!:*.tmpl' | while read -r f; do
+    if head -n1 "$f" | grep -qE '^#!.*[/ ](ba|da)?sh( |$)'; then echo "$f"; fi
+done)
+shellcheck $scripts
+for f in $(git ls-files dot_zshenv 'dot_config/zsh/*'); do zsh -n "$f"; done
 ssh -T -G -F private_dot_ssh/private_config github.com >/dev/null
 """
 
@@ -45,6 +48,6 @@ env = { MISE_GLOBAL_CONFIG_FILE = "{{config_root}}/.config/mise/config.toml" }
 run = "mise lock --global"
 
 [tasks.update]
-description = "advance every tool in mise.lock within its config.toml request"
+description = "advance every tool in mise.lock within its config.toml request, and the SHA-pinned CI actions (3-day cooldown)"
 env = { MISE_GLOBAL_CONFIG_FILE = "{{config_root}}/.config/mise/config.toml" }
-run = "mise lock --global --bump"
+run = ["mise lock --global --bump", "pinact run --update --min-age 3"]

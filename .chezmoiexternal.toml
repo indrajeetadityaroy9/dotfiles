@@ -5,8 +5,8 @@ checksum.sha256 = "eec7ba8f7a71414ace0ea0fab0908d005b24cf65d83b169c0ff97815d3cfc
 
 [".local/share/zsh/plugins/zsh-completions"]
 type = "archive"
-url = "https://github.com/zsh-users/zsh-completions/archive/de02bb84ab0af51e328c6ae85ab5555397c31277.tar.gz"
-checksum.sha256 = "d07a49af20fbf31cd1c8970c426093336ab8690038e96a06f3647d3fbace4eb9"
+url = "https://github.com/zsh-users/zsh-completions/archive/b5e8e0a22deb05a807bb8655aef809a29f3cffed.tar.gz"
+checksum.sha256 = "2a7a140e2698f39fb215a0ea86694c8c59ad51c97133cf3f2709c46dfe28bf34"
 exact = true
 stripComponents = 1
 include = ["*/src/**"]

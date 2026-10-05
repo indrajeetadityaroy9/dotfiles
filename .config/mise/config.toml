@@ -1,7 +1,8 @@
 # Global toolset (CLIs and runtimes). config.toml states intent ("latest" or a runtime
 # channel); mise.lock pins exact versions and checksums. chezmoi symlinks both into
 # ~/.config/mise, so `mise use -g tool` edits them here. After editing by hand:
-# `mise run lock`. Advance every tool within its request (3-day cooldown): `mise run update`.
+# `mise run lock`. Advance every tool within its request, and the CI action pins
+# (3-day cooldown): `mise run update`.
 # The tasks at the bottom are global: `mise run upgrade|doctor|completions` from any directory.
 [settings]
 lockfile = true
@@ -13,7 +14,7 @@ uv_venv_auto = "source"
 
 [tools]
 uv     = "latest"
-python = "3.13"
+python = "3.14"
 node   = "lts"
 rust   = "stable"
 java   = "temurin-21"
@@ -33,6 +34,7 @@ gitleaks   = "latest"
 helix      = "latest"
 jq         = "latest"
 lazygit    = "latest"
+pinact     = "latest"
 ripgrep    = "latest"
 shellcheck = "latest"
 starship   = "latest"
@@ -94,7 +96,8 @@ gen _gitleaks gitleaks completion zsh
 gen _hx       sh -c 'cat "$(mise where helix)"/*/contrib/completion/hx.zsh'
 gen _maturin  maturin completions zsh
 gen _mise     mise completion zsh
-gen _rg       rg --generate complete-zsh
+gen _pinact   pinact completion zsh
+gen _rg      rg --generate complete-zsh
 gen _ruff     ruff generate-shell-completion zsh
 gen _rustup   rustup completions zsh rustup
 gen _starship starship completions zsh
