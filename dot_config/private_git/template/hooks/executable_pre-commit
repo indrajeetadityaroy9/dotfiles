@@ -1,3 +1,8 @@
 #!/bin/sh
-command -v gitleaks >/dev/null 2>&1 || exit 0
+# GUI git clients (e.g. Xcode) don't get the shell's PATH, so fall back to mise's shims.
+PATH="$PATH:$HOME/.local/share/mise/shims"
+command -v gitleaks >/dev/null 2>&1 || {
+    echo "pre-commit: gitleaks not found; skipping secret scan" >&2
+    exit 0
+}
 exec gitleaks git --staged --redact --no-banner -v

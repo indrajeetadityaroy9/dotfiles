@@ -50,8 +50,8 @@ xh         = "latest"
 "npm:corepack"         = "latest"
 
 [tasks.upgrade]
-description = "pull and apply dotfiles, then upgrade Homebrew packages and mise itself"
-run = ["chezmoi update", "brew update", "brew upgrade", "brew autoremove", "mise self-update --yes"]
+description = "pull and apply dotfiles, upgrade Homebrew packages and mise itself, prune superseded tool versions"
+run = ["chezmoi update", "brew update", "brew upgrade", "brew autoremove", "mise self-update --yes", "mise prune --yes"]
 
 [tasks.doctor]
 description = "report drift between this Mac and the dotfiles repo"
