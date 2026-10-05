@@ -49,7 +49,7 @@ zoxide     = "0.10.0"
 
 [tasks.upgrade]
 description = "pull and apply dotfiles, then upgrade Homebrew packages and mise itself"
-run = ["chezmoi update", "brew update", "brew upgrade", "mise self-update --yes"]
+run = ["chezmoi update", "brew update", "brew upgrade", "brew autoremove", "mise self-update --yes"]
 
 [tasks.doctor]
 description = "report drift between this Mac and the dotfiles repo"
