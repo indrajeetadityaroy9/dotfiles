@@ -2,7 +2,6 @@ README.md
 Brewfile
 bootstrap.sh
 mise.toml
-renovate.json
 
 # Secrets and machine-local files: never managed.
 .ssh/id_*

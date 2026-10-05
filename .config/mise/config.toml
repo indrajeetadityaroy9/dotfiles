@@ -1,6 +1,7 @@
-# Global toolset (CLIs and runtimes, locked in mise.lock). chezmoi symlinks this
-# file and mise.lock into ~/.config/mise, so `mise use -g tool@x.y` edits them here.
-# After editing by hand: `mise run lock`. Advance python/node/rust/java: `mise run update`.
+# Global toolset (CLIs and runtimes). config.toml states intent ("latest" or a runtime
+# channel); mise.lock pins exact versions and checksums. chezmoi symlinks both into
+# ~/.config/mise, so `mise use -g tool` edits them here. After editing by hand:
+# `mise run lock`. Advance every tool within its request (3-day cooldown): `mise run update`.
 # The tasks at the bottom are global: `mise run upgrade|doctor|completions` from any directory.
 [settings]
 lockfile = true
@@ -11,41 +12,41 @@ minimum_release_age = "3d"
 uv_venv_auto = "source"
 
 [tools]
-uv     = "0.12.15"
+uv     = "latest"
 python = "3.13"
 node   = "lts"
 rust   = "stable"
 java   = "temurin-21"
 
-atuin      = "18.22.0"
-bat        = "0.26.1"
-chezmoi    = "2.72.2"
-"aqua:Wilfred/difftastic" = "0.70.0"
-dua        = "2.45.0"
-fastfetch  = "2.68.1"
-fd         = "10.5.0"
-fzf        = "0.74.4"
-gh         = "2.101.0"
-git-lfs    = "3.8.0"
-gitleaks   = "8.30.1"
-helix      = "25.07.1"
-jq         = "1.8.2"
-"aqua:jesseduffield/lazygit" = "0.65.1"
-ripgrep    = "15.2.0"
-shellcheck = "0.11.0"
-starship   = "1.26.0"
-tealdeer   = "1.9.0"
-yq         = "4.53.6"
-zoxide     = "0.10.0"
+atuin      = "latest"
+bat        = "latest"
+chezmoi    = "latest"
+"aqua:Wilfred/difftastic" = "latest"
+dua        = "latest"
+fastfetch  = "latest"
+fd         = "latest"
+fzf        = "latest"
+gh         = "latest"
+git-lfs    = "latest"
+gitleaks   = "latest"
+helix      = "latest"
+jq         = "latest"
+"aqua:jesseduffield/lazygit" = "latest"
+ripgrep    = "latest"
+shellcheck = "latest"
+starship   = "latest"
+tealdeer   = "latest"
+yq         = "latest"
+zoxide     = "latest"
 
-"github:PyO3/maturin"    = "1.15.0"
-"aqua:astral-sh/ruff"    = "0.16.8"
-"github:astral-sh/ty"    = "0.0.82"
-"aqua:ducaale/xh"        = "0.26.2"
+"github:PyO3/maturin"    = "latest"
+"aqua:astral-sh/ruff"    = "latest"
+"github:astral-sh/ty"    = "latest"
+"aqua:ducaale/xh"        = "latest"
 
-"pypi:huggingface-hub" = "1.31.0"
-"pypi:ipython"         = "9.17.1"
-"npm:corepack"         = "0.36.0"
+"pypi:huggingface-hub" = "latest"
+"pypi:ipython"         = "latest"
+"npm:corepack"         = "latest"
 
 [tasks.upgrade]
 description = "pull and apply dotfiles, then upgrade Homebrew packages and mise itself"

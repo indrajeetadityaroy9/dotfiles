@@ -45,6 +45,6 @@ env = { MISE_GLOBAL_CONFIG_FILE = "{{config_root}}/.config/mise/config.toml" }
 run = "mise lock --global"
 
 [tasks.update]
-description = "advance the python/node/rust/java channels in mise.lock"
+description = "advance every tool in mise.lock within its config.toml request"
 env = { MISE_GLOBAL_CONFIG_FILE = "{{config_root}}/.config/mise/config.toml" }
-run = "mise lock --global --bump python node rust java"
+run = "mise lock --global --bump"
