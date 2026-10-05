@@ -21,7 +21,8 @@ java   = "temurin-21"
 atuin      = "latest"
 bat        = "latest"
 chezmoi    = "latest"
-"aqua:Wilfred/difftastic" = "latest"
+delta      = "latest"
+difftastic = "latest"
 dua        = "latest"
 fastfetch  = "latest"
 fd         = "latest"
@@ -31,7 +32,7 @@ git-lfs    = "latest"
 gitleaks   = "latest"
 helix      = "latest"
 jq         = "latest"
-"aqua:jesseduffield/lazygit" = "latest"
+lazygit    = "latest"
 ripgrep    = "latest"
 shellcheck = "latest"
 starship   = "latest"
@@ -39,10 +40,10 @@ tealdeer   = "latest"
 yq         = "latest"
 zoxide     = "latest"
 
-"github:PyO3/maturin"    = "latest"
-"aqua:astral-sh/ruff"    = "latest"
-"github:astral-sh/ty"    = "latest"
-"aqua:ducaale/xh"        = "latest"
+maturin    = "latest"
+ruff       = "latest"
+ty         = "latest"
+xh         = "latest"
 
 "pypi:huggingface-hub" = "latest"
 "pypi:ipython"         = "latest"
@@ -84,6 +85,7 @@ gen _atuin    atuin gen-completions --shell zsh
 gen _bat      bat --completion zsh
 gen _cargo    rustup completions zsh cargo
 gen _chezmoi  chezmoi completion zsh
+gen _delta    delta --generate-completion zsh
 gen _dua      dua completions zsh
 gen _fd       fd --gen-completions zsh
 gen _gh       gh completion -s zsh

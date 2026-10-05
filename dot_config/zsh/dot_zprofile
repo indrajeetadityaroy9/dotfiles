@@ -2,6 +2,8 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# postgresql@17 is keg-only: Homebrew doesn't link psql and friends into its bin.
+[[ -d $HOMEBREW_PREFIX/opt/postgresql@17/bin ]] && path=("$HOMEBREW_PREFIX/opt/postgresql@17/bin" $path)
 path=("$HOME/.local/bin" $path)
 
 [[ -d $HOME/Library/Android/sdk ]] && export ANDROID_HOME="$HOME/Library/Android/sdk"

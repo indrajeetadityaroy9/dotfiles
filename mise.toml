@@ -4,7 +4,7 @@
 [tasks.lint]
 description = "shellcheck scripts; syntax-check zsh and ssh configs"
 run = """
-shellcheck bootstrap.sh dot_config/private_git/template/hooks/executable_pre-commit
+shellcheck bootstrap.sh dot_config/private_git/template/hooks/executable_pre-commit .chezmoiscripts/run_onchange_after_30-macos.sh
 for f in dot_zshenv dot_config/zsh/dot_zprofile dot_config/zsh/dot_zshrc; do zsh -n "$f"; done
 ssh -T -G -F private_dot_ssh/private_config github.com >/dev/null
 """
